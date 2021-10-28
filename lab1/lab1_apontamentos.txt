@@ -1,0 +1,172 @@
+## CBD LAB1
+
+## Instalar o redis
+Problema a instalar o redis
+ ->Preciso de ir sempre para a diretoria ./redis-6.2.6/src/redis-cli
+ ->Erros devido a utilização de portas quando estou noutras diretorias
+ https://redis.io/download, tive que escolher logo a primeira alternativa
+
+## Inicio da utilização do redis 
+
+
+    http://intro2libsys.info/introduction-to-redis/introducing-redis
+    O que é o Redis?
+        Redis is an open-source NoSQL key-value datastore where instead of storing just one type of value, such as a string, more complex types of values can be stored. Redis, short for REmote DIctionary Server
+    
+    Data type Redis?
+        A real strength of Redis is its powerful data structures that can be used to model and solve complex problems even with such primitive structures as Strings, Lists, Hashes, Sets, and Sorted Sets. Other data structures are stored as strings but have Redis commands for special uses. These are the Bitmap data type and the HyperLogLogs data type.
+
+    Alguns comandos uteis:
+        redis-server -> abrir o servidor, sempre que tive 1 servidor aberto preciso de o matar para poder abrir outro
+        sudo service redis-server stop -> forma para matar o servidor redis
+
+        Ping -> Para testar se o servidor esta a correr, basta no server-cli fazer um Ping e caso a resposta do servidor 
+        DBSIZE-> Para ver o número total de chaves que existem na base de dados
+        SET nome_key valor -> Permite guardar na base de dados uma key com o valor associado
+        Get nome_key -> retorna o valor guardado nesta key
+        Exists nome_key -> ver se essa key existe na db
+        Type nome_key -> retorno o tipo do valor associado à key
+        Del nome_key-> apaga a key da db
+        Scan 0  -> permite ver tudo 
+        Scan 0 Match regex -> ver apenas o que contem o match, o * é muito importante
+
+        INCR  nome_key-> will increase an string "integer" value by 1
+        INCRBY  nome_key x-> is similar but increase the value by a integer
+        The DECR  DECRBY  nome_key-> decrease an string "integer" value by 1 or more
+        Caso não se coloque valores numéricos a incrementar vai dar erro
+
+        MSET e MGET -> Mesmo que os anteriores mas agora utilizado com o conceito de multiplas key-value ao mesmo tempo
+
+        Os inteiros são guardados no redis como strings
+
+
+        ## Listas
+            LPUSH nome_lista valor_lista-> Inserção do lado esquerdo 
+            RPUSH nome_lista valor_lista-> Inserção do lado direito  
+
+            LPOP command remove the first element from the list and returns it the calling client while the 
+            RPOP command removes and returns the last element of the list.
+            LRANGE /RRange-> Permite ver a lista toda , da esquerda para a direita ou direita para a esquerda
+            LTRIM nome inicio fim -> Fico apenas com os elementos que estão na posição inicio até posição de fim
+            BLPOP and BRPOP commands are similar to LPOP and RPOP commands only they will block sending a return back to client if the list is empty.
+            LINDEXT nome_lista index-> retorna o elemento que está no index dado
+        
+        ##Hash
+            HSET nome_hash nome_key nome_value -> introduzir no hash, apenas 1 valor de cada vez
+            HGET nome_hash nome_key -> obter o valor do hash
+            HMSET nome_hash nome_key1 nome_value1 nome_key2 nome_value2 -> introduzir multiplos
+            HMGET nome_hash nome_key1 nome_key2 -> obter os values das keys que foram dadas
+            HGETALL nome_hash -> retorna tudo
+            HLEN nome_hash -> retorna o número de pares que há
+            HEXISTS nome_hash nome_key-> retorna 0 se não existir, 1 se existirB
+            HKEYS nome_hash-> retorna todas as keys
+            HVALS nome_hash -> retorna todos os vals
+            HDEL nome_hash nome_key -> apaga essa key
+            HINCRBY nome_hash nome_key valor_incrementar  -> incrementa o value da key dada no valor que foi dito
+        
+        ## Sets
+             -> Nos sets, não existem elemetos repetidos e a ordem dos mesmos no conjunto não é importante 
+            SADD nome_set  element1 element2 ... -> adiciona ao conjunto os elementos dados
+            SMEMBERS nome_set -> retorna o conteúdo do set
+            SISMEMBER nome_set elemento -> verifica se o elemento dado pertence ao conjunto, 0 false 1 true
+            SCARD nome_set -> retorna o número de elementos do conjunto
+            SUNION nome_set1 nome_set2 -> da um conjunto com todos os elementos de ambos os conjuntos, sem repetições se houver algum elemento que pertença a ambos
+            SINTER nome_set1 nome_set2 -> Da os elementos que estão em ambos os conjuntos
+            SDIFF nome_set1 nome_set2 -> Da os elementos do set1 que não estão no set2
+        
+        ## Sorted Sets
+            -> É uma combinação que o redis tem de lists com sets, os valores estão ordenados mas são unicos
+
+            ZADD nome_ss score1 attr score2 attr2 -> para adicionar um elemento temos que lhe dar um score e consoante esse score é que é feita a ordenação, do score mais pequeno para o score maior
+            ZRANGE nome_ss range_inicial range_final -> retorna o que temos daquel sorted set no intervalo dado
+            ZRANGE nome_ss range_inicial range_final withscores-> retorna o que temos daquel sorted set no intervalo dado, retorna os scores dados também
+            ZREVRANGE nome_ss range_inicial range_final -> o mesmo que o ZRANGE mas com a lista invertida
+            ZREVRANGE nome_ss range_inicial range_final withscores-o mesmo que o ZRANGE withscores mas com a lista invertida
+
+            Nos ranges o conjunto retornado é [range_inicial , range_final ]
+            Caso 2 elementos possuam o mesmo score, a ordenação é feita por ordem alfabética sendo que elementos começados por numeros são colocados primeiro seguido de letras Maiusculas e por fim  minisculas 
+        
+            ZRANK nome_ss elemento-> retorna o seu rank na ordenação , como se fosse o seu index
+            ZSCORE nome_ss elemento-> retorna o seu score
+            ZREM nome_ss elemento -> remove esse elemento
+
+            ZCOUNT nome_ss range_inicial range_final -> retorna o numero de elementos nesse conjunto
+            ZCARD nome_ss-> retorna o numero de elementos no conjunto
+            ZRANGEBYSCORE nome_ss range_inicial range_final  ->  retorna os elemetnos que estão nesse intervalo, como muitas vezes podemos não saber por onde começar podemos usar o -inf e assim dão todos os elementos ate ao range_final ou podemos usar o +inf quando queremos todos os elementos do range_inicial para a frente
+
+        ## BIT MAP
+            Estrutura de dados mais eficiente em redis, uma bistring de 8 bits guardados por byte, onde o primeiro bit na posição 0 é mais importante do que aquele que esta a seguir, o maximo size de uma bistring é de 512 mb
+            SETBIT  nome posicao valor_bit 
+            GETBIT nome posicao-> retorna o valor do bit naquela posicao
+            BITCOUNT nome -> retorna o numero de  bits guardados naquela posicão
+            BITPOS nome 0/1 -> retorna a primeiro offeset onde esta aquele bit 
+            BITOP AND/OR/XOR/NOT local_guardar_res nome 1 nome2 -> retorna 1 /0 como true or false
+
+        ## HYPERLOGLOGS
+            Redis data type is a probabilistic data structure that provides an estimated count of unique items in a collection, HyperLogLogs offer a reduced
+            PFADD nome ele1 ele2 ele3 -> adicionar elementos na estrutura
+            PFCOUNT nome -> retorna o numero de elementos que existem
+            PFMERGE local_res nome1 nome2 -> e passa para o local_res os elementos dos 2 conjuntos dados
+
+## Exercicio 3 notas
+    Para resolver os problemas das incompatibilidades decidi utilizar o maven 
+    Onde tive que alterar no pom.xml
+       <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>8</source>
+                  <target>8</target>
+              </configuration>
+          </plugin>
+      </plugins>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>3.7.0</version>
+    </dependency>
+
+    mvn package
+     mvn exec:java -Dexec.mainClass="com.jedis.Forum"  -Dexec.cleanupDaemonThreads=false
+
+        Output:
+                ....
+                # Modules
+
+                # Errorstats
+
+                # Cluster
+                cluster_enabled:0
+
+                # Keyspace
+                db0:keys=50,expires=0,avg_ttl=0
+
+    Para correa a alinea b), ou seja, escrever sobre um set basta
+    mvn exec:java -Dexec.mainClass="com.jedis.SimplePost"  -Dexec.cleanupDaemonThreads=false
+    
+    Analise da classe SimplePost:
+        this.jedis = new Jedis("localhost"); temos sempre um objeto do tipo Jedis
+        funcões jedis. -> são adaptadas ao qual exercicio se esta a realizar
+        Depois guardamos os users na base de dados e a seguir a isso vamos buscar as 2 funções à base de dados
+
+    i) mvn exec:java -Dexec.mainClass="com.jedis.SimpleList"  -Dexec.cleanupDaemonThreads=false
+    ii)mvn exec:java -Dexec.mainClass="com.jedis.SimpleMap"  -Dexec.cleanupDaemonThreads=false
+    
+    onde apenas tive que adaptar apenas as funções jedis. e no caso do HashMap tive que alterar a main também.
+    
+    
+
+    ex4)
+        mvn exec:java -Dexec.mainClass="main.java.com.ex4.ex1_4"  -Dexec.cleanupDaemonThreads=false
+        Os nomes vão ser todos colocados em 1 conjunto, minha duvida é se correr o Exercicio
+        mais do que uma vez se preciso estar sempre a meter no redis os dados
+        https://www.codegrepper.com/code-examples/whatever/jedis.zrangeByLex%28%29+get+names+with+prefix
+
+    ex4b)
+        mvn exec:java -Dexec.mainClass="com.ex4b.app.App"  -Dexec.cleanupDaemonThreads=false
+    ex5)
+        mvn exec:java -Dexec.mainClass="com.ex5.app.App"  -Dexec.cleanupDaemonThreads=falsec

@@ -1,0 +1,224 @@
+MongoDB é uma base de dados orientada a documentos representados numa estrutura
+JSON (internamente usa BSON, uma versão binária de JSON).
+
+"Why Use MongoDB?
+Document Oriented Storage − Data is stored in the form of JSON style documents.
+Index on any attribute,Replication and high availability,Auto-Sharding,Rich queries,Fast in-place updates,Professional support by MongoDB
+Where to Use MongoDB?
+Big Data,Content Management and Delivery,Mobile and Social Infrastructure,User Data Management,Data Hub"
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/ -> link para instalar
+
+-> sudo systemctl start mongod , meter o mongo a correr
+-> sudo systemctl status mongod , ver como esta o mongo
+-> sudo systemctl stop mongod , parar o mongo
+-> sudo systemctl restart mongod , restart ao mongo
+
+https://docs.mongodb.com/compass/current/install/ -> instalação do compass
+
+
+mongodb-compass -> comando para correr o compass , muitos problemas instalar o Robo 3T
+
+Estrutura de armazenamento :
+    DB-> Base de dados é um container fisico para coleções.
+Cada base de dados tem o seu próprio conjunto de ficheiros no file systemctl
+    Um server mongoDb normalmente tem varias base de dados
+
+    Collection-> Collection é um grupo de documentos MongoDb.
+    É o equivalente a uma tabela RDBMS, são as tabelas do SQL.
+    Uma coleção existe dentro de uma única base de dados.
+    Coleções não impõe um schema.
+    Os documentos dentro de coleções podem ter diferentes campos, regra geral
+    todos os documentos numa coleção são semelhantes ou tem um propósito semelhantes
+
+    Document-> É um conjunto de pares chave/valor. Tem um schema dinâmico.
+    Schema dinâmicos significa que os documentos na mesma coleção não precisam de ter o mesmo conjunto de campos ou estrutura
+    e os campos comuns nas coleções de documentos podem ter diferente tipos de data.
+
+JSON :
+    "In MongoDB, data is stored as documents. 
+    These documents are stored in MongoDB in JSON (JavaScript Object Notation) format. 
+    JSON documents support embedded fields, so related data and lists of data can be stored
+    with the document instead of an external table.
+    JSON is formatted as name/value pairs."
+
+JavaScript:
+    "Which database is best for JavaScript?
+Node.js supports all kinds of databases no matter if it is a relational database or NoSQL database. 
+However, NoSQL databases like MongoDb are the best fit with Node.js."
+    "The MongoDB shell is an interactive JavaScript shell. 
+    As such, it provides the capability to use JavaScript code directly in the shell or executed as a standalone JavaScript file. 
+    Subsequent hours that deal with using the shell to access the database and 
+    create and manipulate collections and documents provide examples that are written in JavaScript."
+
+    "Each individual command is evaluated over exactly one
+    collection
+        – Queries return a cursor
+    Allows us to iterate over all the selected documents"
+
+O que é o CRUD:
+    Create: Criar um documento, comandos: db.COLLECTION_NAME.insert(document) (não usar),db.COLLECTION_NAME.insertMany(documentos)
+db.COLLECTION_NAME.insertOne(document)
+    Read:   Ler um documento : db.COLLECTION_NAME.find()
+    Update: Atualizar um documento : db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)
+    Delete: Apagar um documento
+
+A chave primária num documento é sempre _chave, quando não colocamos nada ele por omissão cria o _id 
+que fica a ser a chave primária do documento.
+O insert não pode ser usado para alterar o documento 
+
+Mais funcionalidades do find:
+    find({}, {}) -> o 1º {} serve para colocarmos la pelo que queremos pesquisar
+                    O 2ª {} serve para  filtrar aquilo que queremos receber 
+                como o id vem sempre atras para não o recebermos temos de colocar {... , _id:0}
+                e os que queremos receber temos que colocar nome_do_campo :1
+            
+Data Types:
+    O mongoDb é compativel com strings, integer, boolean, double, Min/Max keys (This type is used to compare a value against the lowest and highest BSON elements.)
+Arrays:
+    "This type is used to store arrays or list or multiple values into one key." e depois 
+    em vez de guardar apenas um valor posso guardar vários valores, através de um array.
+ 
+
+            
+Comandos Mongo :
+    use <nome_base_dados> -> vamos para a base de dados que pretendemos, caso ainda não exista o mongo vai criar
+    db.createCollection(<nome_col>) -> criar uma coleção
+    db.COLLECTION_NAME.drop()-> apagar coleção
+    db.COLLECTION_NAME.insertOne(doc) -> inserir um documento 
+    db.COLLECTION_NAME.insertMany(doc) -> inserir muitos documentos
+    db.COLLECTION_NAME.find(args) -> procurar por um documento
+    db.COLLECTION_NAME.updateMany(SELECTION_CRITERIA, UPDATED_DATA)  -> comando para alterar  documentos
+    db.COLLECTION_NAME.updateOne(SELECTIOIN_CRITERIA, UPDATED_DATA) -> serve para atualizar apenas 1
+    db.COLLECTION_NAME.remove(DELLETION_CRITTERIA) -> vai apagar todos os que se enquadrem no criterio
+    db.COLLECTION_NAME.remove(DELETION_CRITERIA,1) -> apaga apenas 1 dos que se enquadram no criterio
+
+    db.mycol.remove({}) -> apaga todos os documentos
+    Mas o mongo sugere o delete em vez do remove, com o deleteOne, deleteMany
+    logo 
+    db.COLLECTION_NAME.deleteOne(DELLETION_CRITTERIA)
+    db.COLLECTION_NAME.deleteMany(DELLETION_CRITTERIA)
+
+
+Comandos usados e respostas do mongo:
+    test> use mydb
+    switched to db mydb
+    mydb> show dbs
+    admin     41 kB
+    config  49.2 kB
+    local     41 kB
+    mydb> db.createCollection("post")
+    { ok: 1 }
+    mydb> db.users.insert({
+    ...  _id : ObjectId("507f191e810c19729de860ea"),
+    ...  title: "MongoDB Overview",
+    ...  description: "MongoDB is no sql database",
+    ...  by: "tutorials point",
+    ...  url: "http://www.tutorialspoint.com",
+    ...  tags: ['mongodb', 'database', 'NoSQL'],
+    ...  likes: 100
+    ...  })
+    DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+    {
+    acknowledged: true,
+    insertedIds: { '0': ObjectId("507f191e810c19729de860ea") }
+    }
+    mydb> db.users.find()
+    [
+    {
+        _id: ObjectId("507f191e810c19729de860ea"),
+        title: 'MongoDB Overview',
+        description: 'MongoDB is no sql database',
+        by: 'tutorials point',
+        url: 'http://www.tutorialspoint.com',
+        tags: [ 'mongodb', 'database', 'NoSQL' ],
+        likes: 100
+    }
+    ]   
+     db.post.insert([
+    ... 	{
+    ..... 		title: "MongoDB Overview",
+    ..... 		description: "MongoDB is no SQL database",
+    ..... 		by: "tutorials point",
+    ..... 		url: "http://www.tutorialspoint.com",
+    ..... 		tags: ["mongodb", "database", "NoSQL"],
+    ..... 		likes: 100
+    ..... 	},
+    ... 	{
+    ..... 	title: "NoSQL Database",
+    ..... 	description: "NoSQL database doesn't have tables",
+    ..... 	by: "tutorials point",
+    ..... 	url: "http://www.tutorialspoint.com",
+    ..... 	tags: ["mongodb", "database", "NoSQL"],
+    ..... 	likes: 20,
+    ..... 	comments: [
+    ..... 		{
+    ....... 			user:"user1",
+    ....... 			message: "My first comment",
+    ....... 			dateCreated: new Date(2013,11,10,2,35),
+    ....... 			like: 0
+    ....... 		}
+    ..... 	]
+    ..... }
+    ... ])
+    {
+    acknowledged: true,
+    insertedIds: {
+        '0': ObjectId("617a6c6b91c5c28dc3a705a5"),
+        '1': ObjectId("617a6c6b91c5c28dc3a705a6")
+    }
+    }
+    mydb> db.post.find({title: "NoSQL Database"})
+    [
+    {
+        _id: ObjectId("617a6c6b91c5c28dc3a705a6"),
+        title: 'NoSQL Database',
+        description: "NoSQL database doesn't have tables",
+        by: 'tutorials point',
+        url: 'http://www.tutorialspoint.com',
+        tags: [ 'mongodb', 'database', 'NoSQL' ],
+        likes: 20,
+        comments: [
+        {
+            user: 'user1',
+            message: 'My first comment',
+            dateCreated: ISODate("2013-12-10T02:35:00.000Z"),
+            like: 0
+        }
+        ]
+    }
+]
+    mydb> db.post.find({title: "NoSQL Database"}, {title})
+    ReferenceError: title is not defined
+    mydb> db.post.find({title: "NoSQL Database"}, {title:1 })
+    [
+    {
+        _id: ObjectId("617a6c6b91c5c28dc3a705a6"),
+        title: 'NoSQL Database'
+    }
+]
+    mydb> db.post.find({title: "NoSQL Database"}, {title:1, _id : 0 })
+    [ { title: 'NoSQL Database' } ]
+    mydb> db.post.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
+    DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+    {
+    acknowledged: true,
+    insertedId: null,
+    matchedCount: 1,
+    modifiedCount: 1,
+    upsertedCount: 0
+    }
+    db.post.remove({'title':'MongoDB Overview'})
+    DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+    { acknowledged: true, deletedCount: 0 }
+
+
+Nota interessante: Quando é utilizado o insert recebemos um warning que não convêm utilizar o insert, devemos
+utilizar insertOne ou insertMany.
+
+No 2 usar o mongo compasss ou robo3D, pois vais começar a facilitar mas antes usar apenas a shell
+
+Evidencias -> find *  -> quando temos muitos resultados não é preciso colocar tudo
+mais de 5/6 já começa a ser muito basta por alguns, para o ex2
+
+
+

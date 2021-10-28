@@ -1,0 +1,156 @@
+ping
+DBSIZE
+SET testkey hello
+EXISTS testkey
+TYPE testkey
+testkey
+Keys *
+TYPE testkey
+del testkey
+DBSIZE
+Scan 0
+Set testkey ol
+Scan o
+Scan "o"
+Scan 0
+Scan 0 Match "te"
+Scan 0 MATCH ""
+Scan 0 Match "ol"
+get testkey
+Scan 0 Match "te*"
+Set Book:1 "Infinite Jest"
+get Book
+get Book:1
+Set Book:1:ReadAction 1
+get Book:1:ReadAction
+Incre Book:1:ReadAction
+INCR Book:1:ReadAction
+GET Book:1:ReadAction
+INCRY Book:1:ReadAction 20
+Get Book:1:ReadAction
+INCRBY Book:1:ReadAction 20
+DECR Book:1:ReadAction
+DECRBY Book:1:ReadAction 23
+INCR Book:1 "Infinite Jest"
+INCRBY Book:1 "Infinite Jest"
+MSET Person:2 "Kurt Vonnegut" Person:3 "Jane Austen" Person:4 "Mark Twain"
+MGET Person:2 Person:3 Person:4
+GET Person:2
+LPUSH Book:1:comment "This was a fun read"
+LRANGE Book:1:comment 0 -1
+LRANGE Book:1:comment 0 
+LRANGE Book:1:comment 0 -1
+ LPUSH Book:1:comment "Way too long!"
+RPUSH Book:1:comment "Tennis anyone?"
+LRANGE Book:1:comment 0 -1
+LPOP Book:1:comment
+LRANGE Book:1:comment 0 -1
+ RPOP Book:1:comment
+LRANGE Book:1:comment 0 -1
+RPUSH Organization:1:members Person:1 Person:2 Person:3 Person:4
+LTRIM Organization:1:members 0 2
+LRANGE Organization:1:members 0 -1
+LTRIM Organization: 0 2
+LRANGE Organization:
+LRANGE Organization: 0 -1
+BRPOP Organization:1:members 5
+LRANGE Organization:1:members 0 -1
+HSET Book:3 name "Cats Cradle"
+HGET Book:3
+HGET Book:3 name
+HSET Book:3 ola
+HSET Book:3 age "30"
+HSET Book:4 name "sf" author "Kurt" copyright 1969 ISBN 1112
+HM Book:4
+HMGET Book:4
+HGETALL Book:$
+HGETALL Book:3
+HMGET Book4: author ISBN
+HMGET Book:4 author ISBN
+HLEN Book:4
+HEXISTS Book:4 barcode
+HEXISTS Book:4 copyrightyear
+0
+HEXISTS Book:4 author
+HKEYS Book:4
+HVAL Book:4
+HVALs Book:4
+HDEL Book:4 copyright
+HINCRBY Book:4 ISBN 5
+HINCRBY Book:4 author 3
+SADD Organization:5:member Paul John George Ringo
+SMEMBERS Organization:5:member
+Set Organization:5 "Beatles"
+SISMEMBER Organization:5:member Paul
+SISMEMBER Organization:5:member Pa
+SCARD Organization:5
+SCARD Organization:5:members
+SCARD Organization:5:member
+SADD Organization:6:member Paul Linda Denny
+SADD Organization:7:member Bob George Jeff Roy 
+SUNION Organization:6 Organization:7
+SUNION Organization:6 Organization:7:member
+SUNION Organization:6:member  Organization:7:member
+SDIFF Organization:6:member  Organization:5:member
+SDIFF Organization:5:member  Organization:6:member
+SINTER Organization:5:member  Organization:6:member
+ZADD copyrightYear 1996 Book:1 2014 Book:2 1963 Book:3
+ZADD copyrightYear 1969 Book:4
+ZRANGE copyrightYear 0 -1
+ZRANGE copyrightYear 0 2
+ZRANGE copyrightYear 0 3
+ZRANGE copyrightYear 0 -1 WITHSCORES
+ZREVRANGE copyrightYear 0 -1
+ZREVRANGE copyrightYear 0 -1 WITHSCORES
+ZADD Book:names 0 "Into the Wild" 0 "Cat's Cradle" 
+ZADD Book:names0 "Time Machine, The" 0 "Gravity's Rainbow"
+ZRANGE Book:names 0 -1 WITHSCORES
+ZADD Book:names 0 "Time Machine, The" 0 "Gravity's Rainbow"
+ZRANGE Book:names 0 -1 WITHSCORES
+ZADD Book:names 0 "Time Machine, The" 0 "gravity's Rainbow"
+ZRANGE Book:names 0 -1 WITHSCORES
+ZADD Book:names 0 "into the Wild" 0 "cat's Cradle" 
+ZRANGE Book:names 0 -1 WITHSCORES
+ZADD Book:names 0 "into the Wild" 0 "1at's Cradle" 
+ZRANGE Book:names 0 -1 WITHSCORES
+ZRANK copyrightYear Book:3
+ZRANK copyrightYear Book:56
+ZSCORE copyrightYear Book:3
+ZRANGE copyrightYear 0 -1 WITHSCORES
+ZREM copyrightYear Book:4
+ZRANGE copyrightYear 0 -1 WITHSCORES
+ZCARD copyrightYear
+ZRANGEBYSCORE copyrightYear 1900 1970 WITHSCORES
+ZRANGEBYSCORE copyrightYear 1900 2000 WITHSCORES
+ZRANGEBYSCORE copyrightYear -inf 2000 WITHSCORES
+ ZRANGEBYSCORE copyrightYear 1998 +inf WITHSCORES
+SET Movie:1 "Blade Runner"
+HSET Movie:2 name "Star Wars"
+SADD Movie:3 "2001 a Space Odyssey"
+SETBIT Movie:UserPlays:2014-12-11 2 1
+GETBIT Movie:UserPlays:2014-12-11 2
+SETBIT Movie:UserPlays:2014-12-11 2 
+SETBIT Movie:UserPlays:2014-12-11 2 0
+GETBIT Movie:UserPlays:2014-12-11 2
+SETBIT Movie:UserPlays:2014-12-11 2 1
+GETBIT Movie:UserPlays:2014-12-11 
+SETBIT Movie:UserPlays:2014-12-11 
+SETBIT Movie:UserPlays:2014-12-11 2 1
+SETBIT Movie:UserPlays:2014-12-11 0 1
+GETBIT Movie:UserPlays:2014-12-11 0
+BITCOUNT Movie:UserPlays:2014-12-11
+ BITPOS Movie:UserPlays:2014-12-11 1
+ BITPOS Movie:UserPlays:2014-12-11 0
+ BITPOS Movie:UserPlays:2014-12-11 3
+ BITPOS Movie:UserPlays:2014-12-11 0
+ BITPOS Movie:UserPlays:2014-12-11 1
+SETBIT Movie:UserPlays:2014-12-12 2 1
+SETBIT Movie:UserPlays:2014-12-12 1 1
+BITOP AND and_result Movie:UserPlays:2014-12-11 Movie:UserPlays:2014-12-12
+ GETBIT and_result 
+ GETBIT and_result 0
+ GETBIT and_result 1
+ GETBIT and_result 2
+PFADD EducationEvent:1:attendee Person:1 Person:2 Person:3 Person:44556
+PFCOUNT EducationEvent:1:attendee
+ PFMERGE Event:attendee EducationEvent:1:attendee LiteraryEvent:1:attendee
