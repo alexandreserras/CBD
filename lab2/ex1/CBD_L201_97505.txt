@@ -71,14 +71,90 @@ Mais funcionalidades do find:
                     O 2ª {} serve para  filtrar aquilo que queremos receber 
                 como o id vem sempre atras para não o recebermos temos de colocar {... , _id:0}
                 e os que queremos receber temos que colocar nome_do_campo :1
-            
+    
+Seletores:
+    Comparação :
+        - $eq, $ne  -> equals e o not equals
+        - $lt, $lte, $gte,$gt -> menor, menor ou igual, maior ou igual, maior
+        - $in -> igual a pelo menos 1 dos valores dados 
+        - $nin -> negação do in
+
+    Logicos:
+        - $and , $or 
+        - $nor -> retorna todos os documentos que falhem ambas as clausulas
+        - $not 
+    Element operators:
+        - $exists -> testa se um dado campo existe ou não 
+        - $type -> seleciona documento , se o campo for de um determinado tipos
+    Evaluation operators:
+        - $regex -> testa se o passado no campo corresponde à expressão regular
+        - $text -> faz procura de texto
+
+    
+
 Data Types:
     O mongoDb é compativel com strings, integer, boolean, double, Min/Max keys (This type is used to compare a value against the lowest and highest BSON elements.)
 Arrays:
     "This type is used to store arrays or list or multiple values into one key." e depois 
     em vez de guardar apenas um valor posso guardar vários valores, através de um array.
- 
+    
+    Opeações com arrays:
+        $all -> Corresponde aos arrays que contêm todos os elementos especificados na query
+        $elemMatch-> Seleciona documentos, se um elemento do array corresponder a todos as condições pedidas
+        $size -> Seleciona documentos , se o campo do array tiver um dado tamanho
 
+Modifiers :
+    Sort -> Ordenard o array
+    limit -> retorna no máximo o numero que indicarmos
+    skip -> serve para saltar o numero indicado
+
+Indices:
+    "Indexes support the efficient resolution of queries.
+     Without indexes, MongoDB must scan every document of a collection to select those documents that match the query statement. 
+     This scan is highly inefficient and require MongoDB to process a large volume of data.
+    Indexes are special data structures, that store a small portion of the data set in an easy-to-traverse form. 
+    The index stores the value of a specific field or set of fields, 
+    ordered by the value of the field as specified in the index."
+    Contudo só compensa termos indices quando temos uma quantidade de dados bastante grande 
+
+    Quando colocamos na criação do indice <key> : 1/-1 :
+        O 1 significa ordem ascendente 
+        O -1 significa ordem descendente
+    
+    Temos vários tipos de indices desde:
+        Simples -> Tem apenas 1 campo
+        Compound -> tem varios campos
+        Multikey -> Um campo que possui um array, indice é pelo array
+        
+        Text  - nao vamos usar 
+        Hashed - nao vamos usar 
+        Geospatial  - nao vamos usar 
+
+Agregation:
+    O documento entra numa multi-fase em pipeline, tipo o count e sum  em SQL, que transforma o documento num 
+    agregado de resultados
+
+    Funções usadas no agregado:
+        sum
+        avg
+        Min
+        Max
+        push
+        first
+        addToSet
+        last
+
+    Map Reduces:
+        Paradigma que é util para um conjunto muito grande de dados, logo util quando precisamos
+        de fazer agregados de grupos enormes
+        Temos 2 partes:
+            Map -> indicamos  com o emit onde vamos mexer e em que campos
+            Reduces -> É a parte onde os documentos com as mesmas caracteristicas são juntos, e dizemos o que pretendemos
+
+
+        query:  -> query que vamos fazer
+        output  -> o nome da coleção
+        
             
 Comandos Mongo :
     use <nome_base_dados> -> vamos para a base de dados que pretendemos, caso ainda não exista o mongo vai criar
@@ -97,6 +173,12 @@ Comandos Mongo :
     logo 
     db.COLLECTION_NAME.deleteOne(DELLETION_CRITTERIA)
     db.COLLECTION_NAME.deleteMany(DELLETION_CRITTERIA)
+    db.COLLECTION_NAME.createIndex({KEY:1}) -> criar Indices   
+    db.COLLECTION_NAME.dropIndex({KEY:1}) -> apaga o indice dado
+    db.COLLECTION_NAME.dropIndexes() -> apaga todos os indices
+    db.COLLECTION_NAME.getIndexes() -> obter os indices
+    db.COLLECTION_NAME.aggregate([{match state}, {group state }])
+    db.COLLECTION_NAME.mapReduce(function () {} function(key,values) {} { query : {},out : })
 
 
 Comandos usados e respostas do mongo:
@@ -186,7 +268,7 @@ Comandos usados e respostas do mongo:
         }
         ]
     }
-]
+    ]
     mydb> db.post.find({title: "NoSQL Database"}, {title})
     ReferenceError: title is not defined
     mydb> db.post.find({title: "NoSQL Database"}, {title:1 })
@@ -195,7 +277,7 @@ Comandos usados e respostas do mongo:
         _id: ObjectId("617a6c6b91c5c28dc3a705a6"),
         title: 'NoSQL Database'
     }
-]
+    ]
     mydb> db.post.find({title: "NoSQL Database"}, {title:1, _id : 0 })
     [ { title: 'NoSQL Database' } ]
     mydb> db.post.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
@@ -210,6 +292,178 @@ Comandos usados e respostas do mongo:
     db.post.remove({'title':'MongoDB Overview'})
     DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
     { acknowledged: true, deletedCount: 0 }
+
+    db.testes.insertMany( [{ nome : "Alex", idade : 21 }, { nome : "Ricardo", idade: 20 }, {nome : "Artur" , idade : 20 } , { nome : "Reis" , idade :5}]);
+    {
+    acknowledged: true,
+    insertedIds: {
+        '0': ObjectId("617c0923ac8de9d047e8980f"),
+        '1': ObjectId("617c0923ac8de9d047e89810"),
+        '2': ObjectId("617c0923ac8de9d047e89811"),
+        '3': ObjectId("617c0923ac8de9d047e89812")
+    }
+    }
+    mydb> db.testes.find( { idade : 21 })
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e8980f"),
+        nome: 'Alex',
+        idade: 21
+    },
+    mydb> db.testes.find({idade:  { $lt  : 21 }})
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e89810"),
+        nome: 'Ricardo',
+        idade: 20
+    },
+    {
+        _id: ObjectId("617c0923ac8de9d047e89811"),
+        nome: 'Artur',
+        idade: 20
+    },
+    { _id: ObjectId("617c0923ac8de9d047e89812"), nome: 'Reis', idade: 5 },
+    {
+      mydb> db.testes.find({idade:  { $eq  : 21 }})
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e8980f"),
+        nome: 'Alex',
+        idade: 21
+    }
+    mydb> db.testes.find({idade:  { $in   : [5,21] }})
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e8980f"),
+        nome: 'Alex',
+        idade: 21
+    },
+    { _id: ObjectId("617c0923ac8de9d047e89812"), nome: 'Reis', idade: 5 },
+
+    mydb> db.testes.find({idade:  { $nin   : [5,21] }})
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e89810"),
+        nome: 'Ricardo',
+        idade: 20
+    },
+    {
+        _id: ObjectId("617c0923ac8de9d047e89811"),
+        nome: 'Artur',
+        idade: 20
+    }
+    mydb> db.testes.find({$or :[  {idade : 21    }, {nome:"Ricardo"}]})
+[
+  {
+    _id: ObjectId("617c0923ac8de9d047e8980f"),
+    nome: 'Alex',
+    idade: 21
+  },
+  {
+    _id: ObjectId("617c0923ac8de9d047e89810"),
+    nome: 'Ricardo',
+    idade: 20
+  }
+  mydb> db.testes.find({ nome : { $exists: true, $nin: ["Alex","Ricardo"]}})
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e89811"),
+        nome: 'Artur',
+        idade: 20
+    },
+    { _id: ObjectId("617c0923ac8de9d047e89812"), nome: 'Reis', idade: 5 }
+
+        mydb> db.testes.find({ nome : /A/})
+    [
+    {
+        _id: ObjectId("617c0923ac8de9d047e8980f"),
+        nome: 'Alex',
+        idade: 21
+    },
+    {
+        _id: ObjectId("617c0923ac8de9d047e89811"),
+        nome: 'Artur',
+        idade: 20
+    }
+        mydb> db.inventory.insertMany([
+    ...    { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] }, 
+    ...    { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
+    ...    { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
+    ...    { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
+    ...    { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+    ... ]);
+    {
+    acknowledged: true,
+    insertedIds: {
+        '0': ObjectId("617c0c9229d602973f2155cc"),
+        '1': ObjectId("617c0c9229d602973f2155cd"),
+        '2': ObjectId("617c0c9229d602973f2155ce"),
+        '3': ObjectId("617c0c9229d602973f2155cf"),
+        '4': ObjectId("617c0c9229d602973f2155d0")
+    }
+    }   
+    mydb> db.inventory.find( { tags: ["red", "blank"] } )
+    [
+    {
+        _id: ObjectId("617c0c9229d602973f2155cd"),
+        item: 'notebook',
+        qty: 50,
+        tags: [ 'red', 'blank' ],
+        dim_cm: [ 14, 21 ]
+    }
+    ]
+    mydb> db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+    [
+    {
+        _id: ObjectId("617c0c9229d602973f2155cc"),
+        item: 'journal',
+        qty: 25,
+        tags: [ 'blank', 'red' ],
+        dim_cm: [ 14, 21 ]
+    },
+    {
+        _id: ObjectId("617c0c9229d602973f2155cd"),
+        item: 'notebook',
+        qty: 50,
+        tags: [ 'red', 'blank' ],
+        dim_cm: [ 14, 21 ]
+    },
+    {
+        _id: ObjectId("617c0c9229d602973f2155ce"),
+        item: 'paper',
+        qty: 100,
+        tags: [ 'red', 'blank', 'plain' ],
+        dim_cm: [ 14, 21 ]
+    },
+    {
+        _id: ObjectId("617c0c9229d602973f2155cf"),
+        item: 'planner',
+        qty: 75,
+        tags: [ 'blank', 'red' ],
+        dim_cm: [ 22.85, 30 ]
+    }
+    ]
+    mydb> db.inventory.find( { dim_cm: { $elemMatch: { $gt: 22, $lt: 30 } } } )
+    [
+    {
+        _id: ObjectId("617c0c9229d602973f2155cf"),
+        item: 'planner',
+        qty: 75,
+        tags: [ 'blank', 'red' ],
+        dim_cm: [ 22.85, 30 ]
+    }
+    ]
+    mydb> db.inventory.find( { "tags": { $size: 3 } } )
+    [
+    {
+        _id: ObjectId("617c0c9229d602973f2155ce"),
+        item: 'paper',
+        qty: 100,
+        tags: [ 'red', 'blank', 'plain' ],
+        dim_cm: [ 14, 21 ]
+    }
+    ]
+
 
 
 Nota interessante: Quando é utilizado o insert recebemos um warning que não convêm utilizar o insert, devemos
