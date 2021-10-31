@@ -102,12 +102,21 @@ db.restaurants.aggregate([{ $group :{ _id : "$address.rua",total : {$sum:1}}} , 
 //25. Qual o restaurante com  mais notas "A"
 
 //26.  Qual o restaurante com o pior score
+db.restaurants.aggregate([{ $addFields :{ scoreTotal : {$sum: "$grades.score"}}} ,  {$sort : {scoreTotal:1}},{$limit : 1}])
+//{ "_id" : ObjectId("617c14f8ada709c8420fb083"), "address" : { "building" : "4", "coord" : [ -73.99426609999999, 40.7508707 ], "rua" : "Penn Plaza", "zipcode" : "10001" }, "localidade" : "Manhattan", "gastronomia" : "American", "grades" : [ { "date" : ISODate("2013-11-14T00:00:00Z"), "grade" : "A", "score" : 2 }, { "date" : ISODate("2011-03-21T00:00:00Z"), "grade" : "A", "score" : 0 } ], "nome" : "Gold Bar B", "restaurant_id" : "40716961", "scoreTotal" : 2 }
 
-//27. Quantos restaurantes de gastronomia Portuguese existem na rua Jamaica Avenue
+//27. Quais os  restaurantes de gastronomia Portuguese que existem na rua Jamaica Avenue
+db.restaurants.aggregate([{$match : {"address.rua": "Jamaica Avenue","gastronomia":"Portuguese"}}  ])
+//{ "_id" : ObjectId("617c14f8ada709c8420fa981"), "address" : { "building" : "222-05", "coord" : [ -73.732315, 40.720725 ], "rua" : "Jamaica Avenue", "zipcode" : "11428" }, "localidade" : "Queens", "gastronomia" : "Portuguese", "grades" : [ { "date" : ISODate("2014-09-17T00:00:00Z"), "grade" : "A", "score" : 13 }, { "date" : ISODate("2014-07-25T00:00:00Z"), "grade" : "P", "score" : 8 }, { "date" : ISODate("2014-02-20T00:00:00Z"), "grade" : "B", "score" : 19 }, { "date" : ISODate("2013-07-17T00:00:00Z"), "grade" : "B", "score" : 14 }, { "date" : ISODate("2012-03-01T00:00:00Z"), "grade" : "A", "score" : 13 } ], "nome" : "Mateus Restaurant", "restaurant_id" : "40394518" }
 
-//28. Por localidade quais as gastronomias disponiveis, ordenados por ordem alfabética inversa
+//28. Por rua quais as gastronomias disponiveis, ordenados por ordem alfabética 
 
-//29. Quais os restaurantes existentes em cada zipcode
+//29. Qunatos restaurantes existentes em cada zipcode, ordenados por ordem crescente de restaurantes
+db.restaurants.aggregate([{$group : {_id:"$address.zipcode",total:{$sum:1}}}, {$sort:{total:1}}])
+//{ "_id" : "10106", "total" : 1 }{ "_id" : "10153", "total" : 1 }{ "_id" : "10044", "total" : 1 }{ "_id" : "11433", "total" : 1 }{ "_id" : "11436", "total" : 1 }{ "_id" : "11697", "total" : 1 }{ "_id" : "11692", "total" : 1 }{ "_id" : "11411", "total" : 1 }{ "_id" : "10174", "total" : 1 }{ "_id" : "11233", "total" : 1 }{ "_id" : "11005", "total" : 1 }{ "_id" : "11239", "total" : 1 }{ "_id" : "10103", "total" : 2 }{ "_id" : "10037", "total" : 2 }{ "_id" : "11371", "total" : 2 }...
+
 
 //30. Qual a localidade com mais restaurants 
+db.restaurants.aggregate([{$group : {_id:"$localidade",total:{$sum:1}}}, {$sort:{total:-1}},{$limit:1}])
+//{ "_id" : "Manhattan", "total" : 1883 }
 
