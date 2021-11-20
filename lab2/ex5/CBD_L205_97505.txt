@@ -1,0 +1,157 @@
+
+Decidi utilizar os documentos que se encontram no repositório:
+https://raw.githubusercontent.com/neelabalan/mongodb-sample-dataset/main/sample_weatherdata/data.json
+que é relativo a dados sobre o clima.
+
+
+Descrever a estrutura do documento agora:
+	Como se pode ver pelo exemplo de documento abaixo, o documento possui:(continuar)
+			....
+	Exemplo de 1 documento:
+		{"_id":{"$oid":"5553a998e4b02cf7151190b8"},"st":"x+47600-047900",
+		"ts":{"$date":{"$numberLong":"447339600000"}},
+		"position":{"type":"Point","coordinates":[{"$numberDouble":"-47.9"},{"$numberDouble":"47.6"}]}
+		,"elevation":{"$numberInt":"9999"},"callLetters":"VCSZ","qualityControlProcess":"V020",
+		"dataSource":"4","type":"FM-13","airTemperature":{"value":{"$numberDouble":"-3.1"},"quality":"1"},
+		"dewPoint":{"value":{"$numberDouble":"999.9"},"quality":"9"},
+		"pressure":{"value":{"$numberDouble":"1015.3"},"quality":"1"}
+		,"wind":{"direction":{"angle":{"$numberInt":"999"},"quality":"9"},"type":"9"
+		,"speed":{"rate":{"$numberDouble":"999.9"},"quality":"9"}},"visibility"
+		:{"distance":{"value":{"$numberInt":"999999"},"quality":"9"},"variability"
+		:{"value":"N","quality":"9"}},"skyCondition":{"ceilingHeight":{"value":{"$numberInt":"99999"}
+		,"quality":"9","determination":"9"},"cavok":"N"},
+		"sections":["AG1"],"precipitationEstimatedObservation":{"discrepancy":"2",
+		"estimatedWaterDepth":{"$numberInt":"999"}}}
+
+Como dar import:
+	Utilizei a database ex5 -> use ex5
+	mongoimport --db ex5 --collection weather  --drop --file ./weather.json
+
+Para correr :
+     mvn package
+     mvn exec:java -Dexec.mainClass="com.ex5.App"  -Dexec.cleanupDaemonThreads=false 
+
+Querys dos find :(6 querys)
+		1-> Indicar quais as coordinates, dos locais onde a temperatura do ar é superior a 5.5 e ondas com 
+		altura igual ou superior a 5 metro
+		Document{{_id=5553a998e4b02cf7151190ed, position=Document{{coordinates=[-48.6, 35.9]}}, airTemperature=Document{{value=14.8}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf7151190f8, position=Document{{coordinates=[152.9, -37.8]}}, airTemperature=Document{{value=17.2}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119608, position=Document{{coordinates=[-48.6, 59.5]}}, airTemperature=Document{{value=14.8}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119606, position=Document{{coordinates=[-18, 49.8]}}, airTemperature=Document{{value=13}}, waveMeasurement=Document{{waves=Document{{height=5.5}}}}}}
+		Document{{_id=5553a998e4b02cf71511960b, position=Document{{coordinates=[7.5, -15]}}, airTemperature=Document{{value=24.5}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119801, position=Document{{coordinates=[-57.4, -52.2]}}, airTemperature=Document{{value=10}}, waveMeasurement=Document{{waves=Document{{height=5}}}}}}
+		Document{{_id=5553a998e4b02cf7151198be, position=Document{{coordinates=[16.1, -29.4]}}, airTemperature=Document{{value=19.5}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf7151198cb, position=Document{{coordinates=[1.4, 60.8]}}, airTemperature=Document{{value=7}}, waveMeasurement=Document{{waves=Document{{height=5}}}}}}
+		Document{{_id=5553a998e4b02cf7151198eb, position=Document{{coordinates=[-78, 49.8]}}, airTemperature=Document{{value=999.9}}, waveMeasurement=Document{{waves=Document{{height=5.5}}}}}}
+		Document{{_id=5553a998e4b02cf71511990c, position=Document{{coordinates=[-126.9, 47.3]}}, airTemperature=Document{{value=9.5}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119918, position=Document{{coordinates=[1.5, 59.6]}}, airTemperature=Document{{value=6.2}}, waveMeasurement=Document{{waves=Document{{height=5}}}}}}
+		Document{{_id=5553a998e4b02cf715119976, position=Document{{coordinates=[-53.2, 24.5]}}, airTemperature=Document{{value=14.8}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119a21, position=Document{{coordinates=[129.8, 19.7]}}, airTemperature=Document{{value=17.6}}, waveMeasurement=Document{{waves=Document{{height=22}}}}}}
+		Document{{_id=5553a998e4b02cf715119a33, position=Document{{coordinates=[-16.9, 23.3]}}, airTemperature=Document{{value=20}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119b3b, position=Document{{coordinates=[-17.9, 50]}}, airTemperature=Document{{value=13}}, waveMeasurement=Document{{waves=Document{{height=5.5}}}}}}
+		Document{{_id=5553a998e4b02cf715119b40, position=Document{{coordinates=[-61.9, -41.7]}}, airTemperature=Document{{value=17}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119b5f, position=Document{{coordinates=[74.4, 38.3]}}, airTemperature=Document{{value=8.9}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119b76, position=Document{{coordinates=[92.3, 3.8]}}, airTemperature=Document{{value=27}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119bba, position=Document{{coordinates=[32.9, 18.9]}}, airTemperature=Document{{value=999.9}}, waveMeasurement=Document{{waves=Document{{height=99.9}}}}}}
+		Document{{_id=5553a998e4b02cf715119bcc, position=Document{{coordinates=[-18, 49.9]}}, airTemperature=Document{{value=999.9}}, waveMeasurement=Document{{waves=Document{{height=5.5}}}}}}
+		Document{{_id=5553a998e4b02cf715119be4, position=Document{{coordinates=[1.5, 55.5]}}, airTemperature=Document{{value=7.9}}, waveMeasurement=Document{{waves=Document{{height=5}}}}}}
+		Document{{_id=5553a998e4b02cf715119bef, position=Document{{coordinates=[-6.9, 49.5]}}, airTemperature=Document{{value=10.7}}, waveMeasurement=Document{{waves=Document{{height=15}}}}}}
+
+		2-> Indicar onde as callLetters são PLAT, qualityControlProcess é V020 e a variabilidade tem valor 9 qual é a sky skyCondition, nao deve ser apresentado o _id
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=750, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=240, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=1200, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=240, quality=1, determination=C}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}}}
+		Document{{skyCondition=Document{{ceilingHeight=Document{{value=240, quality=1, determination=C}}, cavok=N}}}}
+
+
+		3-> Indicar onde as sections contem  AG1,AY1,GF1,MW1  SA1, UA1,MD1, UG1 e a sua coordenada da longitude é maior ou igual a 60.9 ,os resultados devem ser ordenados por ordem crescente de  timestamp e apenas escolhido 5
+		Document{{st=x+61600+001300, ts=Mon Mar 05 21:00:00 WET 1984, position=Document{{type=Point, coordinates=[1.3, 61.6]}}, elevation=9999, callLetters=GDNE, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=7.8, quality=1}}, dewPoint=Document{{value=6.9, quality=1}}, pressure=Document{{value=1013.8, quality=1}}, wind=Document{{direction=Document{{angle=240, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}, visibility=Document{{distance=Document{{value=4000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=210, quality=1, determination=C}}, cavok=N}}, sections=[AG1, AY1, GF1, MD1, MW1, SA1, UA1, UG1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=3}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=8, quality=1}}, period=Document{{value=3, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=08, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=08, quality=1}}, lowCloudGenus=Document{{value=07, quality=1}}, lowestCloudBaseHeight=Document{{value=250, quality=1}}, midCloudGenus=Document{{value=99, quality=9}}, highCloudGenus=Document{{value=99, quality=9}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=7, quality=1}}, quantity3Hours=Document{{value=5.7, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=63, quality=1}}], seaSurfaceTemperature=Document{{value=8, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=6, height=2.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+66700+010400, ts=Mon Mar 05 18:00:00 WET 1984, position=Document{{type=Point, coordinates=[10.4, 66.7]}}, elevation=9999, callLetters=UUQR, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=2.6, quality=1}}, dewPoint=Document{{value=-1.2, quality=1}}, pressure=Document{{value=1005.1, quality=1}}, wind=Document{{direction=Document{{angle=270, quality=1}}, type=N, speed=Document{{rate=19, quality=1}}}}, visibility=Document{{distance=Document{{value=10000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=750, quality=1, determination=C}}, cavok=N}}, sections=[AG1, AY1, GF1, MD1, MW1, SA1, UA1, UG1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=1}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=2, quality=1}}, period=Document{{value=6, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=06, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=06, quality=1}}, lowCloudGenus=Document{{value=02, quality=1}}, lowestCloudBaseHeight=Document{{value=800, quality=1}}, midCloudGenus=Document{{value=06, quality=1}}, highCloudGenus=Document{{value=00, quality=1}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=2, quality=1}}, quantity3Hours=Document{{value=2.3, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=15, quality=1}}], seaSurfaceTemperature=Document{{value=8.9, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=8, height=3.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+62400+005100, ts=Mon Mar 05 18:00:00 WET 1984, position=Document{{type=Point, coordinates=[5.1, 62.4]}}, elevation=9999, callLetters=UZLF, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=6, quality=1}}, dewPoint=Document{{value=999.9, quality=9}}, pressure=Document{{value=1018.6, quality=1}}, wind=Document{{direction=Document{{angle=290, quality=1}}, type=N, speed=Document{{rate=9, quality=1}}}}, visibility=Document{{distance=Document{{value=10000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=240, quality=1, determination=C}}, cavok=N}}, sections=[AG1, AY1, GA1, GF1, MD1, MW1, SA1, UA1, UG1, WA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=0}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=2, quality=1}}, period=Document{{value=6, quality=1}}}}], skyCoverLayer=[Document{{coverage=Document{{value=09, quality=1}}, baseHeight=Document{{value=99999, quality=9}}, cloudType=Document{{value=99, quality=9}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=09, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=09, quality=1}}, lowCloudGenus=Document{{value=99, quality=9}}, lowestCloudBaseHeight=Document{{value=99999, quality=9}}, midCloudGenus=Document{{value=99, quality=9}}, highCloudGenus=Document{{value=99, quality=9}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=2, quality=1}}, quantity3Hours=Document{{value=4.2, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=02, quality=1}}], seaSurfaceTemperature=Document{{value=5, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=7, height=2.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+61100-002700, ts=Mon Mar 05 18:00:00 WET 1984, position=Document{{type=Point, coordinates=[-2.7, 61.1]}}, elevation=9999, callLetters=UETY, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=8, quality=1}}, dewPoint=Document{{value=999.9, quality=9}}, pressure=Document{{value=1017.5, quality=1}}, wind=Document{{direction=Document{{angle=210, quality=1}}, type=N, speed=Document{{rate=11, quality=1}}}}, visibility=Document{{distance=Document{{value=10000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}, sections=[AG1, AY1, GF1, MD1, MW1, SA1, UA1, UG1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=0}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=0, quality=1}}, period=Document{{value=6, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=07, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=07, quality=1}}, lowCloudGenus=Document{{value=99, quality=9}}, lowestCloudBaseHeight=Document{{value=800, quality=1}}, midCloudGenus=Document{{value=99, quality=9}}, highCloudGenus=Document{{value=99, quality=9}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=7, quality=1}}, quantity3Hours=Document{{value=4, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=02, quality=1}}], seaSurfaceTemperature=Document{{value=20, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=3, height=1, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+71100+039800, ts=Mon Mar 05 18:00:00 WET 1984, position=Document{{type=Point, coordinates=[39.8, 71.1]}}, elevation=9999, callLetters=USMQ, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=1.5, quality=1}}, dewPoint=Document{{value=999.9, quality=9}}, pressure=Document{{value=996.1, quality=1}}, wind=Document{{direction=Document{{angle=220, quality=1}}, type=N, speed=Document{{rate=8, quality=1}}}}, visibility=Document{{distance=Document{{value=20000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=420, quality=1, determination=C}}, cavok=N}}, sections=[AG1, AY1, GF1, MD1, MW1, SA1, UA1, UG1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=1}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=7, quality=1}}, period=Document{{value=6, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=08, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=99, quality=9}}, lowCloudGenus=Document{{value=07, quality=1}}, lowestCloudBaseHeight=Document{{value=450, quality=1}}, midCloudGenus=Document{{value=06, quality=1}}, highCloudGenus=Document{{value=06, quality=1}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=4, quality=1}}, quantity3Hours=Document{{value=0, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=15, quality=1}}], seaSurfaceTemperature=Document{{value=4, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=6, height=0.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+
+		4-> Descobrir qual é a velocidade do vento mais rapido 
+		Document{{wind=Document{{speed=Document{{rate=999.9}}}}}}
+
+		5-> Onde as ondas tiverem um periodo igual a 5 e a pressure maior que 1300  e excluindo o id
+		Document{{st=x+10700+058100, ts=Mon Mar 05 18:00:00 WET 1984, position=Document{{type=Point, coordinates=[58.1, 10.7]}}, elevation=9999, callLetters=UIXR, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=28.2, quality=1}}, dewPoint=Document{{value=999.9, quality=9}}, pressure=Document{{value=9999.9, quality=9}}, wind=Document{{direction=Document{{angle=20, quality=1}}, type=N, speed=Document{{rate=8, quality=1}}}}, visibility=Document{{distance=Document{{value=20000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=22000, quality=1, determination=C}}, cavok=N}}, sections=[AG1, AY1, GF1, MD1, MW1, SA1, UA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=0}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=0, quality=1}}, period=Document{{value=6, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=02, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=02, quality=1}}, lowCloudGenus=Document{{value=01, quality=1}}, lowestCloudBaseHeight=Document{{value=800, quality=1}}, midCloudGenus=Document{{value=00, quality=1}}, highCloudGenus=Document{{value=00, quality=1}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=6, quality=1}}, quantity3Hours=Document{{value=0.7, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=02, quality=1}}], seaSurfaceTemperature=Document{{value=24.9, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=99, height=1, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+27600-026900, ts=Mon Mar 05 18:00:00 WET 1984, position=Document{{type=Point, coordinates=[-26.9, 27.6]}}, elevation=9999, callLetters=UDXU, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=20, quality=1}}, dewPoint=Document{{value=999.9, quality=9}}, pressure=Document{{value=9999.9, quality=9}}, wind=Document{{direction=Document{{angle=310, quality=1}}, type=N, speed=Document{{rate=10, quality=1}}}}, visibility=Document{{distance=Document{{value=20000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}, sections=[AG1, AY1, GF1, MD1, MW1, SA1, UA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=0}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=0, quality=1}}, period=Document{{value=6, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=05, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=99, quality=9}}, lowCloudGenus=Document{{value=99, quality=9}}, lowestCloudBaseHeight=Document{{value=800, quality=1}}, midCloudGenus=Document{{value=99, quality=9}}, highCloudGenus=Document{{value=99, quality=9}}}}, atmosphericPressureChange=Document{{tendency=Document{{code=4, quality=1}}, quantity3Hours=Document{{value=0, quality=1}}, quantity24Hours=Document{{value=99.9, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=02, quality=1}}], seaSurfaceTemperature=Document{{value=20.1, quality=9}}, waveMeasurement=Document{{method=M, waves=Document{{period=99, height=1.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+52200+004200, ts=Tue Mar 06 03:00:00 WET 1984, position=Document{{type=Point, coordinates=[4.2, 52.2]}}, elevation=9999, callLetters=PLAT, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=5.5, quality=1}}, dewPoint=Document{{value=4.6, quality=1}}, pressure=Document{{value=9999.9, quality=9}}, wind=Document{{direction=Document{{angle=230, quality=1}}, type=N, speed=Document{{rate=0.5, quality=1}}}}, visibility=Document{{distance=Document{{value=999999, quality=9}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}, sections=[AG1, OA1, SA1, UA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=0}}, seaSurfaceTemperature=Document{{value=4.3, quality=9}}, waveMeasurement=Document{{method=I, waves=Document{{period=7, height=0.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+52200+004200, ts=Tue Mar 06 04:00:00 WET 1984, position=Document{{type=Point, coordinates=[4.2, 52.2]}}, elevation=9999, callLetters=PLAT, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=5.5, quality=1}}, dewPoint=Document{{value=4.6, quality=1}}, pressure=Document{{value=9999.9, quality=9}}, wind=Document{{direction=Document{{angle=220, quality=1}}, type=N, speed=Document{{rate=3.6, quality=1}}}}, visibility=Document{{distance=Document{{value=999999, quality=9}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}, sections=[AG1, OA1, SA1, UA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=999}}, seaSurfaceTemperature=Document{{value=4.3, quality=9}}, waveMeasurement=Document{{method=I, waves=Document{{period=9, height=0.5, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+61700+002900, ts=Mon Mar 05 21:00:00 WET 1984, position=Document{{type=Point, coordinates=[2.9, 61.7]}}, elevation=9999, callLetters=RIGG, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=7.1, quality=1}}, dewPoint=Document{{value=6.1, quality=1}}, pressure=Document{{value=9999.9, quality=9}}, wind=Document{{direction=Document{{angle=190, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}, visibility=Document{{distance=Document{{value=10000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=99999, quality=9, determination=9}}, cavok=N}}, sections=[AG1, AY1, GF1, MW1, SA1, UA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=3}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=6, quality=1}}, period=Document{{value=3, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=08, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=08, quality=1}}, lowCloudGenus=Document{{value=99, quality=9}}, lowestCloudBaseHeight=Document{{value=800, quality=1}}, midCloudGenus=Document{{value=99, quality=9}}, highCloudGenus=Document{{value=99, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=81, quality=1}}], seaSurfaceTemperature=Document{{value=6.7, quality=9}}, waveMeasurement=Document{{method=I, waves=Document{{period=8, height=4, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+		Document{{st=x+38300+074400, ts=Tue Mar 06 00:00:00 WET 1984, position=Document{{type=Point, coordinates=[74.4, 38.3]}}, elevation=9999, callLetters=NGWU, qualityControlProcess=V020, dataSource=4, type=FM-13, airTemperature=Document{{value=8.9, quality=1}}, dewPoint=Document{{value=999.9, quality=9}}, pressure=Document{{value=9999.9, quality=9}}, wind=Document{{direction=Document{{angle=999, quality=9}}, type=9, speed=Document{{rate=999.9, quality=9}}}}, visibility=Document{{distance=Document{{value=10000, quality=1}}, variability=Document{{value=N, quality=9}}}}, skyCondition=Document{{ceilingHeight=Document{{value=750, quality=1, determination=C}}, cavok=N}}, sections=[AG1, AY1, GF1, MW1, UA1], precipitationEstimatedObservation=Document{{discrepancy=2, estimatedWaterDepth=0}}, pastWeatherObservationManual=[Document{{atmosphericCondition=Document{{value=2, quality=1}}, period=Document{{value=6, quality=1}}}}], skyConditionObservation=Document{{totalCoverage=Document{{value=07, opaque=99, quality=1}}, lowestCloudCoverage=Document{{value=07, quality=1}}, lowCloudGenus=Document{{value=05, quality=1}}, lowestCloudBaseHeight=Document{{value=800, quality=1}}, midCloudGenus=Document{{value=99, quality=9}}, highCloudGenus=Document{{value=99, quality=9}}}}, presentWeatherObservationManual=[Document{{condition=02, quality=1}}], waveMeasurement=Document{{method=I, waves=Document{{period=11, height=99.9, quality=9}}, seaState=Document{{code=99, quality=9}}}}}}
+
+
+		6-> "Nos locais onde a pressão atmosferica tiver uma alteração, com tendency de codigo  2  ,o waveMeasurement for method I e a estimatedWaterDepth for 999 mostrar as suas call callLetters e timestamp"
+		Document{{ts=Mon Mar 05 14:00:00 WET 1984, callLetters=PLAT}}
+		Document{{ts=Mon Mar 05 16:00:00 WET 1984, callLetters=PLAT}}
+		Document{{ts=Mon Mar 05 22:00:00 WET 1984, callLetters=PLAT}}
+		Document{{ts=Mon Mar 05 16:00:00 WET 1984, callLetters=PLAT}}
+		Document{{ts=Mon Mar 05 17:00:00 WET 1984, callLetters=PLAT}}
+		Document{{ts=Mon Mar 05 14:00:00 WET 1984, callLetters=PLAT}}
+		Document{{ts=Mon Mar 05 23:00:00 WET 1984, callLetters=PLAT}}
+
+
+
+Querys do agreggate: (6 querys)
+		1-> Para cada st, indicar quais os seus dados sobre ventos 
+
+		2-> Para as mesmas coordinates , indicar qual foi a temperatura do ar mais elevada e ordenar por ordem decrescente
+
+		3-> Para o mesmo st, a soma da altura das  ondas esta entre 15 e 30 e a soma da velocidade dos ventos 30
+
+		4->Qual o st com mais ocorrencias   
+
+		5->Quando o array das sections for igual indicar os diversos st 
+
+		6->Para cada valor atmosphericCondition  quantas coordinates existem

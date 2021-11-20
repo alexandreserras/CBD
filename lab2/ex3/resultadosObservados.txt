@@ -1,0 +1,56 @@
+Resposta ao load -> True
+test> populatePhones(351,2,3)
+Inserted number +351-210000002
+Inserted number +351-232000003
+
+test> populatePhones(351,1,5)
+Inserted number +351-210000001
+Inserted number +351-234000002
+E os outros deram duplicados, logo não inseriu mais
+
+Entre outros
+
+db.phones.find()
+[
+  {
+    _id: 351232000001,
+    components: { country: 351, prefix: 232, number: 1 },
+    display: '+351-232000001'
+  },
+  {
+    _id: 351210000002,
+    components: { country: 351, prefix: 21, number: 2 },
+    display: '+351-210000002'
+  },
+  {
+    _id: 351233000003,
+    components: { country: 351, prefix: 233, number: 3 },
+    display: '+351-233000003'
+  }, ...
+
+test> db.phones.find().count()
+200000
+
+test> db.phones.find({"components.country" : 351})
+[
+  {
+    _id: 351232000001,
+    components: { country: 351, prefix: 232, number: 1 },
+    display: '+351-232000001'
+  },
+  {
+    _id: 351210000002,
+    components: { country: 351, prefix: 21, number: 2 },
+    display: '+351-210000002'
+  },
+  {
+    _id: 351233000003,
+    components: { country: 351, prefix: 233, number: 3 },
+    display: '+351-233000003'
+  },
+  {
+
+entre outros comandos
+Ex3:
+test> db.phones.aggregate([{$group : {_id : "$components.prefix", total:{$sum:1}}}])
+query necessária

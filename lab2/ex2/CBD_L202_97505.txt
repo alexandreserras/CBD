@@ -99,7 +99,11 @@ db.restaurants.aggregate([{$match : {"address.rua": "Flatbush Avenue"}},{$group 
 db.restaurants.aggregate([{ $group :{ _id : "$address.rua",total : {$sum:1}}} ,  {$sort : {total:-1}}])
 //{ "_id" : "Broadway", "total" : 178 }{ "_id" : "3 Avenue", "total" : 97 }{ "_id" : "7 Avenue", "total" : 71 }{ "_id" : "2 Avenue", "total" : 62 }{ "_id" : "5 Avenue", "total" : 52 }{ "_id" : "Northern Boulevard", "total" : 49 }...
 
-//25. Qual o restaurante com  mais notas "A"
+//25.O nome e score total de todos os restaurantes, por ordem decrescente de score
+db.restaurants.aggregate([{ $addFields :{ scoreTotal : {$sum: "$grades.score"}}}, {$group : {_id:"$nome", "total":{$first:"$scoreTotal"}}},{$sort:{total:-1}}])
+//{ "_id" : "Nanni Restaurant", "total" : 225 }{ "_id" : "Murals On 54/Randolphs'S", "total" : 202 }{ "_id" : "B.B. Kings", "total" : 199 }{ "_id" : "Bella Napoli", "total" : 193 }{ "_id" : "Cafe Asean", "total" : 184 }{ "_id" : "El Molino Rojo Restaurant", "total" : 181 }{ "_id" : "Tobacco Road", "total" : 179 }{ "_id" : "Hornado Ecuatoriano", "total" : 177 }{ "_id" : "Tacos Mexico", "total" : 171 }{ "_id" : "Gandhi", "total" : 169 }...
+
+
 
 //26.  Qual o restaurante com o pior score
 db.restaurants.aggregate([{ $addFields :{ scoreTotal : {$sum: "$grades.score"}}} ,  {$sort : {scoreTotal:1}},{$limit : 1}])
@@ -110,6 +114,9 @@ db.restaurants.aggregate([{$match : {"address.rua": "Jamaica Avenue","gastronomi
 //{ "_id" : ObjectId("617c14f8ada709c8420fa981"), "address" : { "building" : "222-05", "coord" : [ -73.732315, 40.720725 ], "rua" : "Jamaica Avenue", "zipcode" : "11428" }, "localidade" : "Queens", "gastronomia" : "Portuguese", "grades" : [ { "date" : ISODate("2014-09-17T00:00:00Z"), "grade" : "A", "score" : 13 }, { "date" : ISODate("2014-07-25T00:00:00Z"), "grade" : "P", "score" : 8 }, { "date" : ISODate("2014-02-20T00:00:00Z"), "grade" : "B", "score" : 19 }, { "date" : ISODate("2013-07-17T00:00:00Z"), "grade" : "B", "score" : 14 }, { "date" : ISODate("2012-03-01T00:00:00Z"), "grade" : "A", "score" : 13 } ], "nome" : "Mateus Restaurant", "restaurant_id" : "40394518" }
 
 //28. Por rua quais as gastronomias disponiveis, ordenados por ordem alfabética 
+db.restaurants.aggregate([ {$group : {_id:"$address.rua",gastronomia: {"$addToSet":"$gastronomia"}}},{$sort:{_id:1}}])
+//{ "_id" : "& Grand Central", "gastronomia" : [ "American" ] }{ "_id" : "- Jfk Airport", "gastronomia" : [ "Indian" ] }{ "_id" : "08 Crossisland Pw", "gastronomia" : [ "Chinese" ] }{ "_id" : "1 Avenue", "gastronomia" : [ "Pizza", "Polish", "Japanese", "Bakery", "Italian", "Pizza/Italian", "American", "Mexican", "Café/Coffee/Tea", "French", "Hamburgers", "Chinese", "Middle Eastern" ] }{ "_id" : "10 Avenue", "gastronomia" : [ "Italian", "American", "Greek", "Ethiopian", "Irish", "Hamburgers", "Chinese", "German" ] }...
+
 
 //29. Qunatos restaurantes existentes em cada zipcode, ordenados por ordem crescente de restaurantes
 db.restaurants.aggregate([{$group : {_id:"$address.zipcode",total:{$sum:1}}}, {$sort:{total:1}}])
