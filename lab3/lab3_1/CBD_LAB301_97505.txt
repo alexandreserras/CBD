@@ -1,0 +1,168 @@
+sudo service cassandra start  -> para iniciar o serviço
+sudo service cassandra stop -> para parar o serviço
+nodetool status -> para verificar se esta a correr
+cqlsh -> para utilizar o cassandra com a linha de comandos
+
+CREATE KEYSPACE <identifier> WITH <properties> -> Para criar o KEYSPACE
+
+Formato utilizado comandos -> resposta do servidor cassandra
+Obrigatório o ; no final de cada comando
+
+Vou seguir este tutorial : https://www.tutorialspoint.com/cassandra/
+Interações com o cqlsh:
+    Para criar o keyspace , apagar e utiliza-lo :
+        CREATE KEYSPACE "ex1"
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 2};
+        -> Da me um warning que o numero de nos é inferior às replicas
+        use ex1  ; -> cqlsh:ex1> 
+        drop keyspace ex1 ;  -> 0 feedback mas apaga
+        CREATE KEYSPACE "ex1"
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
+        use ex1
+    Para criar tabelas e verificar que funcionou :
+        CREATE TABLE employee(
+            id int PRIMARY KEY,
+            name text,
+            city text,
+            salario varint,
+            phone varint
+        ); -> Não retorna info nenhuma 
+        select * from employee; ->  id | city | name | phone | salario
+                                    ----+------+------+-------+---------
+    Para alterar as tabelas :
+         ALTER TABLE employee
+       ...  ADD  temp text; -> 0 feedback
+         Alter table employee
+         ... Drop temp;
+
+    TRUNCATE nas tabelas: Isto apaga os dados das tabelas
+        TRUNCATE employee
+    
+    Criar indexs : 
+        CREATE INDEX name ON employee (name);
+    Insert de dados:
+        INSERT INTO employee (id, name, city,
+   phone, salario) VALUES(1,'ram', 'Hyderabad', 9848022338, 50000);
+    INSERT INTO employee (id, name, city,
+   phone, salario) VALUES(2,'robin', 'Hyderabad', 9848022339, 40000);
+    INSERT INTO employee (id, name, city,
+   phone, salario) VALUES(3,'rahman', 'Chennai', 9848022330, 45000);
+
+
+    Update de dados:
+         UPDATE employee SET city='Delhi',emp_sal=50000
+   WHERE id=2;
+    Seleção de dados:
+        select * from employee; -> 
+                                        id | city      | name   | phone      | salario
+                                        ----+-----------+--------+------------+---------
+                                        1 | Hyderabad |    ram | 9848022338 |   50000
+                                        2 |     Delhi |  robin | 9848022339 |   50000
+                                        3 |   Chennai | rahman | 9848022330 |   45000
+
+        select * from employee where id=1-> id | city      | name | phone      | salario
+                                            ----+-----------+------+------------+---------
+                                            1 | Hyderabad |  ram | 9848022338 |   50000
+        select * from employee where city="Delhi";-> SyntaxException: line 1:42 no viable alternative at input ';' (... from employee where city =["Delh]i";)
+        select * from employee where id=1 and city="Delhi"; -> tambem nao da porque city não é clustered key
+
+    Apagar dados:
+        DELETE FROM employee WHERE id =1 e fazendo select * from employee 
+        id | city      | name   | phone      | salario
+        ----+-----------+--------+------------+---------
+        2 |     Delhi |  robin | 9848022339 |   50000
+        3 |   Chennai | rahman | 9848022330 |   45000
+
+    Tipos de dados:
+        ascii -> strings
+        Boolean-> booleans 
+        counter-> integers
+        todos os tipos numericos : int,double,float...
+        timestamp -> Represents a timestamp,string ou int
+
+        Possui estruturas como listas, mapas....
+    Utilizar listas:
+        CREATE TABLE data(name text PRIMARY KEY, email list<text>);
+        INSERT INTO data(name, email) VALUES ('ramu',
+        ['abc@gmail.com','cba@yahoo.com'])
+        Fazendo o select :
+             name | email
+            ------+------------------------------------
+            ramu | ['abc@gmail.com', 'cba@yahoo.com']
+
+        UPDATE data
+        SET email = email +['xyz@tutorialspoint.com']
+        where name = 'ramu'; -> Adiciona mais um campo de email
+        Fazendo o select:
+            name | email
+            ------+--------------------------------------------------------------
+            ramu | ['abc@gmail.com', 'cba@yahoo.com', 'xyz@tutorialspoint.com']
+            
+        UPDATE data
+        SET email = email +['xyz@tutorialspoint.com']
+        where name = 'ramu'; -> Adiciona mais um campo de email
+        Fazendo o select:
+            name | email
+            ------+--------------------------------------------------------------
+            ramu | ['abc@gmail.com', 'cba@yahoo.com', 'xyz@tutorialspoint.com', 'xyz@tutorialspoint.com']
+
+
+    Set's:
+            CREATE TABLE data2 (name text PRIMARY KEY, phone set<varint>);
+            INSERT INTO data2(name, phone)VALUES ('rahman',    {9848022338,9848022339});
+        Fazendo o select:
+        select * from data2  ;
+
+                name   | phone
+                --------+--------------------------
+                rahman | {9848022338, 9848022339}
+        UPDATE data2
+        SET phone = phone + {9848022330}
+        where name = 'rahman';
+        Fazendo o select:
+            name   | phone
+            --------+--------------------------------------
+            rahman | {9848022330, 9848022338, 9848022339}
+        UPDATE data2
+        SET phone = phone + {9848022330}
+        where name = 'rahman';
+        Fazendo o select:
+            name   | phone
+            --------+--------------------------------------
+            rahman | {9848022330, 9848022338, 9848022339}
+
+    Map's:
+        cqlsh:ex1> CREATE TABLE data3 (name text PRIMARY KEY, address map<text, text>);
+        cqlsh:ex1> INSERT INTO data3 (name, address)    VALUES ('robin', {'home' : 'hyderabad' , 'office' : 'Delhi' } );
+        cqlsh:ex1> select * from data3
+            ... ;
+
+            name  | address
+            -------+------------------------------------------
+            robin | {'home': 'hyderabad', 'office': 'Delhi'}
+    
+    Exemplos com ttl:
+        INSERT INTO data(name, email) VALUES ('ramu',
+        ['abc@gmail.com','cba@yahoo.com']) using
+            ttl 10
+        Fazendo o select :
+             name | email
+            ------+------------------------------------
+            ramu | ['abc@gmail.com', 'cba@yahoo.com'] 
+        mas ao fim de 10 segundos já não temos resultados
+
+    Usando timestamp:
+        CREATE TABLE emp (
+            empid int,
+            create_date timestamp,
+            deptid int,
+            PRIMARY KEY (empid, create_date)
+        )
+        Insert into emp(empId, deptId, create_date) values(1,2,'2016-03-15 00:00:00+0000');
+
+        select * from emp where create_date='2016-03-15' and empid=1;
+
+         empid | create_date                     | deptid
+        -------+---------------------------------+--------
+            1 | 2016-03-15 00:00:00.000000+0000 |      2
+
