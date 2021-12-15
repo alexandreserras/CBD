@@ -1,0 +1,85 @@
+//Criação e mudar para o keyspace
+create KEYSPACE "nba" 
+ WITH replication = {'class': 'SimpleStrategy','replication_factor' : 1};
+
+use nba;
+
+//Criação das tabelas 
+Create Table Jogador(
+    id int,
+    nome text,
+    idade int,
+    equipa text,
+    peso float,
+    altura float,
+    titulos list<text>,
+    PRIMARY KEY(id,nome,equipa)
+);
+Create Table Treinador(
+    id int,
+    nome text,
+    idade int,
+    equipa text,
+    taticas_preferidas set<text>,
+    titulos list<text>,
+    PRIMARY KEY(id,nome,equipa)
+);
+Create Table Equipa(
+    nome text,
+    localizacao text,
+    coach text,
+    jogadores list<text>,
+    palmares map<text,int>,
+    PRIMARY KEY(nome,localizacao)
+);
+Create Table Liga(
+    nome text,
+    pais text,
+    historico map<int,text>,
+    equipas set<text>,
+    inicio date,
+    final date,
+    PRIMARY KEY(nome,pais)
+);
+Create Table Estatisticas_equipas(
+    nome_equipa text,
+    resultados map<text,int>,
+    dados map<text,int>,
+    mvp_jogo list<text>,
+    PRIMARY KEY(nome_equipa)
+);
+
+Create Table Estatisticas_jogadores(
+    nome_jogador text,
+    dados map<text,int>,
+    numero_mvp int,
+    PRIMARY KEY(nome_jogador)
+);
+
+//Inserts dos jogadores 
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (1,'Kevin Durant', 32, 'Brooklyn Nets', 92.3,2.03, ['Nba 2016','Nba 2017','Jogos olimpicos 2016', 'Jogos olimpicos 2021']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (2,'Dwyane Wade', 37, 'Miami Heat',88.5, 1.95, ['Nba 2006','Nba 2010','Nba 2011','Jogos olimpicos 2008', 'Jogos olimpicos 2012']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (3,'Carlos Lisboa', 38, 'Benfica', 75, 1.85,['Campeão Nacional 2010','Campeão Nacional 2011','Campeão Nacional 2012', 'Campeão Nacional 2017','Campeão Nacional 2018']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (4,'Stephen Curry', 33, 'Golden State Warriors', 87.3, 1.93,['Nba 2015','Nba 2016','Nba 2017','Jogos olimpicos 2016', 'Jogos olimpicos 2021']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (5,'Lebron James', 37, 'Los Angeles Lakers', 100, 2.01, ['Nba 2010','Nba 2011','Nba 2014', 'Nba 2019','Jogos olimpicos 2008', 'Jogos olimpicos 2012']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (6,'Neemias Queta',22, 'Aggies', 96.2,2.11,[]);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (7,'Diogo Brito',23, 'Andorra', 80,1.85,[]);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (8,'Chris Paul', 39, 'Phoenix Suns', 79.3, 1.85, ['Jogos olimpicos 2016', 'Jogos olimpicos 2012', 'Jogos olimpicos 2008']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (9,'Paul Gason', 42, 'Barcelona', 90, 2.15, ['Nba 2007','Nba 2008','Europeu 2014', 'Campeão de Espanha 2020']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (10,'Jimmy Butler', 32, 'Miami Heat',93.2, 2.02, ['Nba 2022']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (11, 'Bam  Adebayo', 25, 'Miami Heat', 100.2, 2.13, ['Nba 2022']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (12, 'Russel Westbrook', 32, 'Los Angeles Lakers', 93, 2.04, []);
+
+//Inserts dos treinadores
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (1,'Erik Spoelstra', 50, 'Miami Heat', {'2 pivots', 'Defender zona', 'Jogar para abrir para o lançador de 3'},['Nba 2010', 'Nba 2011', 'Nba 2022']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (2,'Popovich', 70, 'San Antonio Spurs',{'Defender zona', 'Jogar para os lançadores'},['Nba 2008', 'Nba 2012', 'Nba 2009', 'Jogos Olimpicos 2012', 'Jogos Olimpicos 2016', 'Jogos Olimpicos 2021']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (3,'Nash', 47, 'Brooklyn Nets', {}, []);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (4,'Frank Voguel', 48, 'Los Angeles Lakers', {'Abrir para o star player'},['Nba 2019']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (5,'Tyronn Lue', 44,'Los Angeles Clippers',{'2 bases'},['Nba 2015']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (6,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (7,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (8,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (9,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (10,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (11,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (12,);

@@ -9,7 +9,7 @@ Create Table User(
     nome text,
     email text,
     created_on TIMESTAMP,
-    PRIMARY KEY(email)
+    PRIMARY KEY(username)
 );
 Create Table Video(
     id int , 
@@ -78,7 +78,7 @@ Create Table Comentario_Video(
     Primary Key (video_id,created_on  )
 )with Clustering ORDER BY (created_on DESC);
 
-
+Clustering ORDER BY (created_on DESC);
 
 
 insert into User (username, nome, email, created_on) values ('serras', 'Alexandre Serras', 'alexandreserras@ua.pt', toTimestamp(now()));

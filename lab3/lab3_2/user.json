@@ -1,10 +1,11 @@
-{"email": "rosa@ua.pt", "created_on": "2021-12-04 21:10:32.128Z", "nome": "Mariana Rosa", "username": "mariana"}
-{"email": "rodriguez@ua.pt", "created_on": "2021-12-04 21:10:32.118Z", "nome": "Ricardo Rodriguez", "username": "ricardo"}
-              {"email": "reis@ua.pt", "created_on": "2021-12-04 21:10:32.095Z", "nome": "Jonhy Kings", "username": "reis"}
-      {"email": "paulo@ua.pt", "created_on": "2021-12-04 21:10:32.133Z", "nome": "Paulo Guilherme", "username": "pylance"}
-             {"email": "fahla@ua.pt", "created_on": "2021-12-04 21:10:32.139Z", "nome": "Nuno Fahla", "username": "fahla"}
-                   {"email": "dx@ua.pt", "created_on": "2021-12-04 21:10:32.110Z", "nome": "Diogo Cruz", "username": "dx"}
-          {"email": "bernas@ua.pt", "created_on": "2021-12-04 21:10:32.105Z", "nome": "João Farias", "username": "bernas"}
-         {"email": "artur@ua.pt", "created_on": "2021-12-04 21:10:33.327Z", "nome": "Artur Romão", "username": "arturito"}
-{"email": "alexandreserras@ua.pt", "created_on": "2021-12-04 21:10:32.040Z", "nome": "Alexandre Serras", "username": "serras"}
-      {"email": "gonçaloleal@ua.pt", "created_on": "2021-12-04 21:10:32.100Z", "nome": "Gonçalo Leal", "username": "leal"}
+{"username": "ricardo", "created_on": "2021-12-14 12:41:47.443Z", "email": "rodriguez@ua.pt", "nome": "Ricardo Rodriguez"}
+{"username": "arturito", "created_on": "2021-12-14 12:41:47.466Z", "email": "artur@ua.pt", "nome": "Artur Romão"}
+{"username": "pylance", "created_on": "2021-12-14 12:41:47.454Z", "email": "paulo@ua.pt", "nome": "Paulo Guilherme"}
+{"username": "fahla", "created_on": "2021-12-14 12:41:47.460Z", "email": "fahla@ua.pt", "nome": "Nuno Fahla"}
+{"username": "bernas", "created_on": "2021-12-14 12:41:47.432Z", "email": "bernas@ua.pt", "nome": "João Farias"}
+{"username": "dx", "created_on": "2021-12-14 12:41:47.438Z", "email": "dx@ua.pt", "nome": "Diogo Cruz"}
+{"username": "serras", "created_on": "2021-12-14 12:41:47.411Z", "email": "alexandreserras@ua.pt", "nome": "Alexandre Serras"}
+{"username": "mariana", "created_on": "2021-12-14 12:41:47.448Z", "email": "rosa@ua.pt", "nome": "Mariana Rosa"}
+{"username": "reis", "created_on": "2021-12-14 12:41:47.421Z", "email": "reis@ua.pt", "nome": "Jonhy Kings"}
+{"username": "leal", "created_on": "2021-12-14 12:41:47.427Z", "email": "gonçaloleal@ua.pt", "nome": "Gonçalo Leal"}
+{"username": "bms", "created_on": "2021-12-14 12:54:53.883Z", "email": "brunos@ua.pt", "nome": "Bruno Serras"}
