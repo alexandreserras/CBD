@@ -287,15 +287,16 @@ select * from equipa where localizacao ='Los Angeles' limit 1;
     {'Brooklyn Nets', 'Golden State Warriors', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Miami Heat', 'Milwaukee Bucks', 'Phonix Suns', 'San Antonio Spurs'}
 
 
-10-> Quem foi os vencedores dos jogos entre miami heat e los angeles Lakers
+10-> Quem foi os vencedores, resultado e o melhor em campo(deve redifinir-se mvp_jogo para melhor_em_campo) dos jogos entre miami heat e los angeles Lakers
 
-    select vencedor from jogo where equipa_1='Miami Heat' and equipa_2 ='Los Angeles Lakers';
+    select vencedor, resultado, mvp_jogo as melhor_em_campo  from jogo where equipa_1='Miami Heat' and equipa_2 ='Los Angeles Lakers';
 
-    vencedor
-    --------------------
-    Los Angeles Lakers
-    Los Angeles Lakers
-            Miami Heat
-            Miami Heat
-            Miami Heat
+ vencedor           | resultado | melhor_em_campo
+--------------------+-----------+------------------
+ Los Angeles Lakers |  120- 123 |     Lebron James
+ Los Angeles Lakers | 121 - 141 | Russel Westbrook
+         Miami Heat | 120 - 110 |     Jimmy Butler
+         Miami Heat | 132 - 131 |      Bam Adebayo
+         Miami Heat |   140-132 |      Dwyane Wade
+
 
