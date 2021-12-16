@@ -37,9 +37,17 @@ Create Table Liga(
     pais text,
     historico map<int,text>,
     equipas set<text>,
-    inicio date,
-    final date,
     PRIMARY KEY(nome,pais)
+);
+
+Create Table Jogo(
+    equipa_1 text,
+    equipa_2 text,
+    id int,
+    vencedor text,
+    resultado text,
+    mvp_jogo text,
+    PRIMARY KEY((equipa_1,equipa_2),vencedor,id)
 );
 Create Table Estatisticas_equipas(
     nome_equipa text,
@@ -69,6 +77,9 @@ insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (9,'Paul Ga
 insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (10,'Jimmy Butler', 32, 'Miami Heat',93.2, 2.02, ['Nba 2022']);
 insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (11, 'Bam  Adebayo', 25, 'Miami Heat', 100.2, 2.13, ['Nba 2022']);
 insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (12, 'Russel Westbrook', 32, 'Los Angeles Lakers', 93, 2.04, []);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (13, 'Tony Parker', 40, 'San Antonio Spurs', 86,1.95, ['Nba 2008', 'Nba 2012', 'Nba 2009']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (14, 'Paul George', 32, 'Los Angeles Clippers', 90,2.05, ['Jogos olimpicos 2016']);
+insert into jogador(id,nome,idade,equipa,peso,altura,titulos) values (15, 'Giannis', 26, 'Milwaukee Bucks', 100.2,2.15, ['Nba 2020']);
 
 //Inserts dos treinadores
 insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (1,'Erik Spoelstra', 50, 'Miami Heat', {'2 pivots', 'Defender zona', 'Jogar para abrir para o lançador de 3'},['Nba 2010', 'Nba 2011', 'Nba 2022']);
@@ -76,10 +87,215 @@ insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (2
 insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (3,'Nash', 47, 'Brooklyn Nets', {}, []);
 insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (4,'Frank Voguel', 48, 'Los Angeles Lakers', {'Abrir para o star player'},['Nba 2019']);
 insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (5,'Tyronn Lue', 44,'Los Angeles Clippers',{'2 bases'},['Nba 2015']);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (6,);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (7,);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (8,);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (9,);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (10,);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (11,);
-insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (12,);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (6,'Steph Pierce', 53, 'Aggies', {}, ['Titulo da conferencia de utah 2019']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (7,'Bruno Paixão',50, 'Benfica', {'Jogar na tabela com o pivot'},['Campeão Nacional 2018']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (8,'Monty Williams', 50, 'Phoenix Suns', {'Ataque posicional', 'Passes sem risco'},[]);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (9,'Augusto Izquierdo',60,'Barcelona',{'Jogo fisico debaixo do cesto'},['Campeão espanhol 2018', 'Campeão espanhol 2020']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (10,'Pablo José',63,'Andorra',{'Jogar para lançar de 3','Defesa ao homem'},[] );
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (11,'Steve Kerr',56, 'Golden State Warriors', {'Defesa zona', 'Abrir para o lançamento exterior'},['Nba 2016','Nba 2017','Nba 2018']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (12,'Mike Budenholzer', 62,'Milwaukee Bucks', {'Atacar debaixo do cesto'},['Nba 2020']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (2,'Popovich', 70, 'Paris',{'Defender zona', 'Jogar para os lançadores'},['Nba 2008', 'Nba 2012', 'Nba 2009', 'Jogos Olimpicos 2012', 'Jogos Olimpicos 2016', 'Jogos Olimpicos 2021']);
+insert into treinador(id,nome,idade,equipa,taticas_preferidas,titulos) values (2,'Popovich', 70, 'EUA',{'Defender zona', 'Jogar para os lançadores'},['Nba 2008', 'Nba 2012', 'Nba 2009', 'Jogos Olimpicos 2012', 'Jogos Olimpicos 2016', 'Jogos Olimpicos 2021']);
+
+
+//Inserts das equipas
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Miami Heat','Miami', 'Erik Spoelstra', ['Dwyane Wade','Bam  Adebayo', 'Jimmy Butler'], {'Nba': 4, 'Conferencia': 10, 'Este': 8});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('San Antonio Spurs', 'San Antonio ', 'Popovich', ['Tony Parker'],{'Nba': 5, 'Conferencia': 15, 'Oeste': 8});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Brooklyn Nets','Brooklyn ', 'Nash', ['Kevin Durant'], {'Nba': 1, 'Este': 2});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Los Angeles Lakers','Los Angeles','Frank Voguel',['Lebron James', 'Russel Westbrook'], {'Nba': 8, 'Conferencia': 25, 'Oeste':15});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Los Angeles Clippers', 'Los Angeles','Tyronn Lue', ['Paul George'],{'Conferencia ':2});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Aggies','Utah','Steph Pierce', ['Neemias Queta'], {'Conferencia (universidade)': 3, });
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Benfica', 'Lisboa','Bruno Paixão', ['Carlos Lisboa'], {'Campeonatos':25, 'Taças': 20, 'Supertaça':18});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Phoenix Suns', 'Phoenix ','Monty Williams', ['Chris Paul'], {'Nba': 1, 'Conferencia':5,'Oeste': 4});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Barcelona', 'Barcelona', 'Augusto Izquierdo', ['Paul Gasol'],{'Campeonato Espanol':35, 'Taça de Espanha': 25, 'Supertaça de Espanha':10} );
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Andorra','Andorra','Pablo José', ['Diogo Brito'], {'Campeonato 2 de Espanha':3 });
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Golden State Warriors', 'São Francisco','Steve Kerr', ['Stephen Curry'],{'Nba': 4, 'Conferencia': 10, 'Oeste': 8});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Milwaukee Bucks','Milwaukee','Mike Budenholzer',[],{'Nba': 1, 'Conferencia': 3, 'Este': 1});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Milwaukee Bucks','Texas','John Cater',[],{'Conferencia': 1, 'Este': 1});
+insert into equipa(nome,localizacao,coach,jogadores,palmares) values ('Milwaukee Bucks','São Francisco','Steve Smith',[],{'Conferencia': 2, 'Este': 1});
+
+
+
+//Inserts de ligas
+
+insert into liga(nome,pais,historico,equipas) values ('Nba', 'EUA', {2006:'Miami Heat',2007:'San Antonio Spurs', 2008:'San Antonio Spurs', 2009: 'San Antonio Spurs', 2010: 'Los Angeles Lakers', 2019:'Los Angeles Lakers', 2020:'Milwaukee Bucks'},{'San Antonio Spurs','Milwaukee Bucks', 'Miami Heat','Brooklyn Nets','Los Angeles Clippers','Los Angeles Lakers','Golden State Warriors','Phonix Suns'});
+insert into liga(nome,pais,historico,equipas) values ('Nba', 'China', {},{'GHUZU'});
+insert into liga(nome,pais,historico,equipas) values ('Campeonato Universitário', 'EUA', {2019:'Aggies'},{'Aggies'});
+insert into liga(nome,pais,historico,equipas) values ('Portugão', 'Portugual', {2019:'Benfica', 2020:'Benfica'},{'Benfica'});
+insert into liga(nome,pais,historico,equipas) values ('Espanhol', 'Espanha',{2019:'Barcelona',2020:'Barcelona'},{'Barcelona'});
+insert into liga(nome,pais,historico,equipas) values ('Italiano', 'Italia',{},{});
+insert into liga(nome,pais,historico,equipas) values ('Segundo Espanhol', 'Espanha', {2018:'Andorra',2020:'Andorra'},{'Andorra'});
+insert into liga(nome,pais,historico,equipas) values ('Alemão','Alemanha',{},{});
+insert into liga(nome,pais,historico,equipas) values ('Chinês','China',{},{});
+insert into liga(nome,pais,historico,equipas) values ('Brasileirão','Brasil',{},{});
+insert into liga(nome,pais,historico,equipas) values ('Francês','França',{},{});
+insert into liga(nome,pais,historico,equipas) values ('Segundo Português', 'Portugal',{},{});
+insert into liga(nome,pais,historico,equipas) values ('Segundo Italiano','Italia',{},{});
+
+
+//Insert de estatisticas de equipas
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Miami Heat',{'vitorias':20, 'derrotas':5},{'media pontos': 115, 'media pontos sofridos':100,'Eficácia':50,'% lançamento de 3': 35, '% lancamento de 2':60, 'ressaltos':50,'blocks':10},['Jimmy Butler','Bam Adebayo','Jimmy Butler','Jimmy Butler']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('San Antonio Spurs',{'vitorias':15, 'derrotas':16},{'media pontos': 120, 'media pontos sofridos':130,'Eficácia':60,'% lançamento de 3': 45, '% lancamento de 2':54, 'ressaltos':60,'blocks':3},['Tony Parker','Tony Parker']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Brooklyn Nets',{'vitorias':14, 'derrotas':7},{'media pontos': 145, 'media pontos sofridos':140,'Eficácia':35,'% lançamento de 3': 20, '% lancamento de 2':70, 'ressaltos':70,'blocks':6},['Kevin Durant','Kevin Durant','Kevin Durant']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Los Angeles Lakers',{'vitorias':10, 'derrotas':15},{'media pontos': 88, 'media pontos sofridos':99,'Eficácia':30,'% lançamento de 3': 19, '% lancamento de 2':40, 'ressaltos':55,'blocks':8},['Lebron James','Lebron James','Russel Westbrook']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Los Angeles Clippers',{'vitorias':2, 'derrotas':25},{'media pontos': 80, 'media pontos sofridos':95,'Eficácia':42,'% lançamento de 3': 33, '% lancamento de 2':45, 'ressaltos':63,'blocks':9},['Paul George']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Aggies',{'vitorias':20, 'derrotas':3},{'media pontos': 130, 'media pontos sofridos':110,'Eficácia':39,'% lançamento de 3': 20, '% lancamento de 2':52, 'ressaltos':45,'blocks':5},['Neemias Queta','Neemias Queta','Neemias Queta','Neemias Queta']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Benfica',{'vitorias':20, 'derrotas':1},{'media pontos': 150, 'media pontos sofridos':123,'Eficácia':48,'% lançamento de 3': 26, '% lancamento de 2':54, 'ressaltos':58,'blocks':13},['Carlos Lisboa','Carlos Lisboa','Carlos Lisboa']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Phoenix Suns',{'vitorias':25, 'derrotas':3},{'media pontos': 140, 'media pontos sofridos':105,'Eficácia':55,'% lançamento de 3': 40, '% lancamento de 2':60, 'ressaltos':60,'blocks':5},['Chris Paul','Chris Paul','Chris Paul']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Barcelona',{'vitorias':30, 'derrotas':5},{'media pontos': 150, 'media pontos sofridos':126,'Eficácia':60,'% lançamento de 3': 32, '% lancamento de 2':75, 'ressaltos':67,'blocks':6},['Paul Gasol','Paul Gasol']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Andorra',{'vitorias':23, 'derrotas':2},{'media pontos': 134, 'media pontos sofridos':114,'Eficácia':34,'% lançamento de 3': 26, '% lancamento de 2':39, 'ressaltos':53,'blocks':6},['Diogo Brito']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Golden State Warriors',{'vitorias':15, 'derrotas':15},{'media pontos': 132, 'media pontos sofridos':132,'Eficácia':40,'% lançamento de 3': 29, '% lancamento de 2':50, 'ressaltos':50,'blocks':4},['Stephen Curry','Stephen Curry','Stephen Curry']);
+insert into estatisticas_equipas(nome_equipa,resultados,dados,mvp_jogo) values('Milwaukee Bucks',{'vitorias':14, 'derrotas':16},{'media pontos': 115, 'media pontos sofridos':127,'Eficácia':52,'% lançamento de 3': 31, '% lancamento de 2':57, 'ressaltos':55,'blocks':8},[]);
+
+
+// //Insert de estatisticas de jogadores
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Kevin Durant',{'pontos':35,'ressaltos':7,'assistencias':5},5);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Dwyane Wade',{'pontos':32,'ressaltos':6,'assistencias':15},10);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Carlos Lisboa',{'pontos':40,'ressaltos':2,'assistencias':5},10);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Stephen Curry',{'pontos':38,'ressaltos':2,'assistencias':8},3);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Lebron James',{'pontos':30,'ressaltos':10,'assistencias':11},8);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Neemias Queta',{'pontos':22,'ressaltos':16,'assistencias':1},1);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Diogo Brito',{'pontos':15,'ressaltos':2,'assistencias':2},0);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Chris Paul',{'pontos':22,'ressaltos':2,'assistencias':22},2);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Paul Gason',{'pontos':15,'ressaltos':15,'assistencias':0},4);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Jimmy Butler',{'pontos':30,'ressaltos':7,'assistencias':8},3);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Bam  Adebayo',{'pontos':25,'ressaltos':15,'assistencias':3},1);
+insert into estatisticas_jogadores(nome_jogador,dados,numero_mvp) values ('Russel Westbrook',{'pontos':15,'ressaltos':16,'assistencias':20},4);
+
+
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor) values('Miami Heat', 'Los Angeles Lakers',1, '120 - 110', 'Jimmy Butler','Miami Heat');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor) values('Miami Heat', 'Los Angeles Lakers',2,'132 - 131', 'Bam Adebayo','Miami Heat');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor) values('Miami Heat', 'Los Angeles Lakers',3, '120- 123', 'Lebron James','Los Angeles Lakers');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor)  values('Miami Heat', 'Los Angeles Lakers',4, '140-132','Dwyane Wade','Miami Heat');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor)  values('Miami Heat', 'Los Angeles Lakers',5, '121 - 141', 'Russel Westbrook','Los Angeles Lakers');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor)  values('Brooklyn Nets', 'Los Angeles Lakers',6, '151 - 143', 'Kevin Durant','Brooklyn Nets');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor)  values('Brooklyn Nets', 'Los Angeles Clippers',7, '135 - 99', 'Kevin Durant','Brooklyn Nets');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor)  values('Benfica', 'Barcelona',8, '150 - 133', 'Carlos Lisboa','Benfica');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor) values('Golden State Warriors', 'Los Angeles Lakers',9, '99 - 80', 'Stephen Curry','Golden State Warriors');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor) values('Brooklyn Nets', 'Golden State Warriors',10, '135 - 160', 'Stephen Curry','Golden State Warriors');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor)  values('San Antonio Spurs', 'Miami Heat',11, '130 - 143', 'Dwyane Wade','Miami Heat');
+insert into jogo(equipa_1,equipa_2,id,resultado,mvp_jogo,vencedor) values('Brooklyn Nets', 'San Antonio Spurs',12, '88 - 120', 'Tony Parker','San Antonio Spurs');
+
+
+
+
+
+
+
+create index jogadores on Equipa(jogadores);
+create index titulos on jogador(titulos);
+create index localizao on Equipa(localizao);
+
+update Estatisticas_equipas set mvp_jogo = mvp_jogo +['Dwyane Wade'] where nome_equipa = 'Miami Heat';
+update Equipa set jogadores = jogadores+ ['Giannis'] where nome='Milwaukee Bucks' and localizacao='Milwaukee';
+update Estatisticas_jogadores set dados={'pontos':30,'ressaltos':20,'assistencias':2} where nome_jogador='Neemias Queta';
+update Treinador set taticas_preferidas=taticas_preferidas+{'Defesa à zona'} where nome ='Steph Pierce' and id=6 and equipa='Aggies';
+update Treinador set taticas_preferidas=taticas_preferidas-{'Defender zona'} where id=2 and nome='Popovich' and equipa='San Antonio Spurs';
+
+
+delete mvp_jogo[0] from  Estatisticas_equipas where nome_equipa = 'Miami Heat';
+delete dados['pontos'] from Estatisticas_jogadores where nome_jogador ='Diogo Brito';
+delete equipas from liga where nome='Segundo Espanhol' and pais='Espanha';
+delete from liga where  nome='Segundo Espanhol' and pais='Espanha';
+delete historico from liga where  nome='Segundo Espanhol' and pais='Espanha';
+
+
+//QUERYS
+
+1-> Selecionar todos os detalhes da equipa onde joga o Dwyane Wade
+
+    select * from equipa where jogadores contains 'Dwyane Wade'  ;
+
+ nome       | localizacao | coach          | jogadores                                       | palmares
+------------+-------------+----------------+-------------------------------------------------+------------------------------------------
+ Miami Heat |       Miami | Erik Spoelstra | ['Dwyane Wade', 'Bam  Adebayo', 'Jimmy Butler'] | {'Conferencia': 10, 'Este': 8, 'Nba': 4}
+
+
+2- > Saber todos os jogadores campeões olimpicos em 2016 
+    select * from jogador  where titulos contains 'Jogos olimpicos 2016';
+
+ id | nome          | equipa                | altura | idade | peso | titulos
+----+---------------+-----------------------+--------+-------+------+--------------------------------------------------------------------------------------
+  1 |  Kevin Durant |         Brooklyn Nets |   2.03 |    32 | 92.3 |             ['Nba 2016', 'Nba 2017', 'Jogos olimpicos 2016', 'Jogos olimpicos 2021']
+  8 |    Chris Paul |          Phoenix Suns |   1.85 |    39 | 79.3 |             ['Jogos olimpicos 2016', 'Jogos olimpicos 2012', 'Jogos olimpicos 2008']
+  4 | Stephen Curry | Golden State Warriors |   1.93 |    33 | 87.3 | ['Nba 2015', 'Nba 2016', 'Nba 2017', 'Jogos olimpicos 2016', 'Jogos olimpicos 2021']
+ 14 |   Paul George |  Los Angeles Clippers |   2.05 |    32 |   90 |                                                             ['Jogos olimpicos 2016']
+
+
+3-> Saber 1 jogador que ganhou a nba em 2011
+
+     select * from jogador  where titulos contains 'Nba 2011' limit 1;
+
+ id | nome         | equipa             | altura | idade | peso | titulos
+----+--------------+--------------------+--------+-------+------+--------------------------------------------------------------------------------------------------
+  5 | Lebron James | Los Angeles Lakers |   2.01 |    37 |  100 | ['Nba 2010', 'Nba 2011', 'Nba 2014', 'Nba 2019', 'Jogos olimpicos 2008', 'Jogos olimpicos 2012']
+
+
+
+4-> Saber toda a informação do treinador chamado 'Erik Spoelstra'
+    select * from treinador where id =1 and nome='Erik Spoelstra';
+
+ id | nome           | equipa     | idade | taticas_preferidas                                                     | titulos
+----+----------------+------------+-------+------------------------------------------------------------------------+--------------------------------------
+  1 | Erik Spoelstra | Miami Heat |    50 | {'2 pivots', 'Defender zona', 'Jogar para abrir para o lançador de 3'} | ['Nba 2010', 'Nba 2011', 'Nba 2022']
+
+
+5-> Saber todas as equipas chamadas 'Milwaukee Bucks' ordenadas por localizacao de forma decrescente
+
+    select * from equipa where nome ='Milwaukee Bucks' order by localizacao Desc ;
+
+ nome            | localizacao   | coach            | jogadores   | palmares
+-----------------+---------------+------------------+-------------+-----------------------------------------
+ Milwaukee Bucks |         Texas |       John Cater |        null |           {'Conferencia': 1, 'Este': 1}
+ Milwaukee Bucks | São Francisco |      Steve Smith |        null |           {'Conferencia': 2, 'Este': 1}
+ Milwaukee Bucks |     Milwaukee | Mike Budenholzer | ['Giannis'] | {'Conferencia': 3, 'Este': 1, 'Nba': 1}
+
+6-> Saber todas as equipas do treinador Popovich
+
+    select equipa from treinador where id=2 and nome='Popovich';
+
+    equipa
+    -------------------
+                EUA
+                Paris
+    San Antonio Spurs
+
+7-> Saber 1 equipa de los angeles 
+
+select * from equipa where localizacao ='Los Angeles' limit 1;
+
+ nome               | localizacao | coach        | jogadores                            | palmares
+--------------------+-------------+--------------+--------------------------------------+--------------------------------------------
+ Los Angeles Lakers | Los Angeles | Frank Voguel | ['Lebron James', 'Russel Westbrook'] | {'Conferencia': 25, 'Nba': 8, 'Oeste': 15}
+
+
+8-> Saber todos os titulos do jogador Jimmy Butler 
+    select titulos from jogador where id=10 and nome ='Jimmy Butler';
+
+        titulos
+        --------------
+        ['Nba 2022']
+
+
+9-> Todas as equipas que jogam numa liga chamada nba 
+
+    select equipas from liga where nome ='Nba';
+
+ equipas
+    ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+    {'GHUZU'}
+    {'Brooklyn Nets', 'Golden State Warriors', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Miami Heat', 'Milwaukee Bucks', 'Phonix Suns', 'San Antonio Spurs'}
+
+
+10-> Quem foi os vencedores dos jogos entre miami heat e los angeles Lakers
+
+    select vencedor from jogo where equipa_1='Miami Heat' and equipa_2 ='Los Angeles Lakers';
+
+    vencedor
+    --------------------
+    Los Angeles Lakers
+    Los Angeles Lakers
+            Miami Heat
+            Miami Heat
+            Miami Heat
+
