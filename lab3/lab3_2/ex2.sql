@@ -78,7 +78,6 @@ Create Table Comentario_Video(
     Primary Key (video_id,created_on  )
 )with Clustering ORDER BY (created_on DESC);
 
-Clustering ORDER BY (created_on DESC);
 
 
 insert into User (username, nome, email, created_on) values ('serras', 'Alexandre Serras', 'alexandreserras@ua.pt', toTimestamp(now()));
@@ -280,19 +279,9 @@ D)
 
 
     6:
-    videos> select * from video limit 10;
-    id | created_on                      | autor    | descricao                                                                          | duracao | nome                             | tag
-    ----+---------------------------------+----------+------------------------------------------------------------------------------------+---------+----------------------------------+-------------------------------
-    5 | 2021-12-04 22:08:05.399000+0000 |  mariana |                                   Video que explica como deve ser aberta uma porta |      20 |             Como abrir uma porta |                      {'joke'}
-    10 | 2021-12-04 22:08:05.416000+0000 |    fahla |                           O curso anda uma seca vou explicar como o tornar melhor! |    30.2 |      Como dar surrender do curso |             {'funny', 'joke'}
-    1 | 2021-12-04 22:08:05.385000+0000 |       dx |                                                                 Festejo do ronaldo |     1.5 |                        SIIIIIIIU |            {'cr7', 'futebol'}
-    8 | 2021-12-04 22:08:05.409000+0000 |  ricardo |       A pessoa mais conhecida da 3 matricula ou melhor do DETI tornou-se meu amigo |       3 |                     Conheci o dx |             {'funny', 'joke'}
-    2 | 2021-12-04 22:08:05.388000+0000 |   serras |                                                         Concerto dos wbg em lisboa |       5 |                      WBG ao vivo | {'concerto', 'musica', 'wbg'}
-    4 | 2021-12-04 22:08:05.395000+0000 |  pylance | Seferovic podia classificar o benfica na liga dos campeões e faz falhanço incrivel |       1 | Seferovic falha de baliza aberta |          {'champions', 'slb'}
-    7 | 2021-12-04 22:08:05.406000+0000 |     leal |                                   Caminhada por Aveiro desde a Estação até ao Deti |    60.2 |                  Vlog por Aveiro |              {'joke', 'vlog'}
-    6 | 2021-12-04 22:08:05.402000+0000 |       dx |          A música mais conhecida de portugal ao vivo num grande concerto em AVEIRO |     7.3 |            Eu sou aquele ao vivo |           {'funny', 'musica'}
-    9 | 2021-12-04 22:08:05.413000+0000 |   bernas |                                                   Pedi a mary channel como patroa! |    15.2 |  Mary Channel pedida como patroa |              {'faina', 'lei'}
-    3 | 2021-12-04 22:08:05.392000+0000 | arturito |                                               Ronaldo marca de livre com o Chelsea |       2 |                     Golo ronaldo |            {'cr7', 'futebol'}
+    Não é   possive visto que cassandra não permite o global querying. 
+    Caso todos os videos tivessem o mesmo id, aí sim já iria ser possivel.
+    Porque a clustering key iria atuar,e colocava tudo ordenado por ordem inversa.
 
 
     7:
@@ -308,13 +297,23 @@ D)
     Impossivel visto que cassandra não permite Global Querying.
 
     10:
-    select * from video where id in (1,2,3);
+    select * from video where id in (1,3,2,4,6,5,8,9,10,7);
 
-    id | created_on                      | autor    | descricao                            | duracao | nome         | tag
-    ----+---------------------------------+----------+--------------------------------------+---------+--------------+-------------------------------
-    1 | 2021-12-04 22:08:05.385000+0000 |       dx |                   Festejo do ronaldo |     1.5 |    SIIIIIIIU |            {'cr7', 'futebol'}
-    2 | 2021-12-04 22:08:05.388000+0000 |   serras |           Concerto dos wbg em lisboa |       5 |  WBG ao vivo | {'concerto', 'musica', 'wbg'}
-    3 | 2021-12-04 22:08:05.392000+0000 | arturito | Ronaldo marca de livre com o Chelsea |       2 | Golo ronaldo |            {'cr7', 'futebol'}
+    id | created_on                      | autor    | descricao                                                                          | duracao | nome                             | tag
+    ----+---------------------------------+----------+------------------------------------------------------------------------------------+---------+----------------------------------+-------------------------------
+    1 | 2021-12-19 14:16:29.712000+0000 |       dx |                                                                 Festejo do ronaldo |     1.5 |                        SIIIIIIIU |            {'cr7', 'futebol'}
+    2 | 2021-12-19 14:16:29.728000+0000 |   serras |                                                         Concerto dos wbg em lisboa |       5 |                      WBG ao vivo | {'concerto', 'musica', 'wbg'}
+    3 | 2021-12-19 14:16:29.735000+0000 | arturito |                                               Ronaldo marca de livre com o Chelsea |       2 |                     Golo ronaldo |            {'cr7', 'futebol'}
+    4 | 2021-12-19 14:16:29.739000+0000 |  pylance | Seferovic podia classificar o benfica na liga dos campeões e faz falhanço incrivel |       1 | Seferovic falha de baliza aberta |          {'champions', 'slb'}
+    5 | 2021-12-19 14:16:29.743000+0000 |  mariana |                                   Video que explica como deve ser aberta uma porta |      20 |             Como abrir uma porta |                      {'joke'}
+    6 | 2021-12-19 14:16:29.747000+0000 |       dx |          A música mais conhecida de portugal ao vivo num grande concerto em AVEIRO |     7.3 |            Eu sou aquele ao vivo |           {'funny', 'musica'}
+    7 | 2021-12-19 14:16:29.751000+0000 |     leal |                                   Caminhada por Aveiro desde a Estação até ao Deti |    60.2 |                  Vlog por Aveiro |              {'joke', 'vlog'}
+    8 | 2021-12-19 14:16:29.757000+0000 |  ricardo |       A pessoa mais conhecida da 3 matricula ou melhor do DETI tornou-se meu amigo |       3 |                     Conheci o dx |             {'funny', 'joke'}
+    9 | 2021-12-19 14:16:29.761000+0000 |   bernas |                                                   Pedi a mary channel como patroa! |    15.2 |  Mary Channel pedida como patroa |              {'faina', 'lei'}
+    10 | 2021-12-19 14:16:29.767000+0000 |    fahla |                           O curso anda uma seca vou explicar como o tornar melhor! |    30.2 |      Como dar surrender do curso |             {'funny', 'joke'}
+
     11:
     Apenas era exequivel se criasse outra tabela onde  a lista de tags era a chave primaria e os videos 
     era um dos atributos.
+
+

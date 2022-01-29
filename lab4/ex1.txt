@@ -1,0 +1,57 @@
+CREATE (TheMatrix:Movie {title:'The Matrix', released:1999, tagline:'Welcome to the Real World'})
+-> Fazer inserção de dados é muito simple preciso apenas de dar um nome e indicar em que tabela vai ficar
+e depois coloco  dentro de {} os atributos que o mesmo vai ter 
+
+
+
+  CREATE (Keanu)-[:ACTED_IN {roles:['Neo']}]->(TheMatrix) : com isto vamos fazer um associação no grafo
+  ou seja, a pessoa Keanu, vai ligar ao filme TheMatrix pela ligação ACTED IN , e vai ter o atributos tambem
+  neste caso tem apenas 1 , role.
+
+
+WITH TomH as a
+      MATCH (a)-[:ACTED_IN]->(m)<-[:DIRECTED]-(d) RETURN a,m,d LIMIT 10;
+
+
+No final O que se faz é ir buscar a pessoa TomH e ir buscar 10 filmes onde ele atuou, e coloca-se
+para esses filmes quem era o seu diretor/dirigente
+
+
+WITH -> The WITH clause allows queries to 
+be chained together, piping the results from one to be used 
+as starting points or criteria in the next.
+
+
+MATCH (director:Person)-[:DIRECTED]->(movie)
+WITH director, count(movie) as directed ORDER BY directed DESC LIMIT 1
+MATCH (hopeful:Person)-[:ACTED_IN]->(movie)
+WITH director, hopeful, count(movie) as appearances ORDER BY appearances LIMIT 1
+MATCH p=(director)-[*..4]-(hopeful)
+RETURN p
+
+-> Vamos fazer buscar os diretos que dirigiram um filme 
+-> E os atores que participam em 1 filme 
+Depois o que é retornado é os diretores e atores que estão a saltos até 4
+
+
+MATCH (director:Person)-[:DIRECTED]->(movie)
+WHERE director.name = "Steven Spielberg"
+RETURN movie.title
+
+
+Vamos retorna os titulos de filmes produzidos por Steven Spielberg
+
+
+
+MATCH (director:Person)-[:DIRECTED]->(movie)
+RETURN director.name AS Director, collect(movie.title) AS Movies
+
+
+Create unique node property constraints to ensure that property values are unique for all nodes with a specific label.
+ Adding the unique constraint, implicitly adds an index on that property
+
+
+Create indexes on one or more properties for all nodes that have a given label.
+ Indexes are used to increase search performance.
+
+

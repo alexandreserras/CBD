@@ -1,0 +1,9 @@
+select json id,nome,localidade,gastronomia from restaurant;
+
+ [json]
+-------------------------------------------------------------------------------------------------------------------
+{"id": "30112340", "nome": "Wendy S", "localidade": "Brooklyn", "gastronomia": ["Hamburgers"]}
+{"id": "30075445", "nome": "Morris Park Bake Shop", "localidade": "Bronx", "gastronomia": ["Bakery"]}
+{"id": "40356018", "nome": "Riviera Caterer", "localidade": "Brooklyn", "gastronomia": ["American"]}
+{"id": "30191841", "nome": "Dj Reynolds Pub And Restaurant", "localidade": "Manhattan", "gastronomia": ["Irish"]}
+

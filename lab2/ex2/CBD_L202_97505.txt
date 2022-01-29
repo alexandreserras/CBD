@@ -92,6 +92,7 @@ db.restaurants.aggregate([{$addFields : { media : {$avg : "$grades.score" }}} , 
 //{ "_id" : ObjectId("617c14f8ada709c8420fa94c"), "address" : { "building" : "130", "coord" : [ -73.984758, 40.7457939 ], "rua" : "Madison Avenue", "zipcode" : "10016" }, "localidade" : "Manhattan", "gastronomia" : "Pizza/Italian", "grades" : [ { "date" : ISODate("2014-12-24T00:00:00Z"), "grade" : "Z", "score" : 31 }, { "date" : ISODate("2014-06-17T00:00:00Z"), "grade" : "C", "score" : 98 }, { "date" : ISODate("2013-12-12T00:00:00Z"), "grade" : "C", "score" : 32 }, { "date" : ISODate("2013-05-22T00:00:00Z"), "grade" : "B", "score" : 21 }, { "date" : ISODate("2012-05-02T00:00:00Z"), "grade" : "A", "score" : 11 } ], "nome" : "Bella Napoli", "restaurant_id" : "40393488", "media" : 38.6 }{ "_id" : ObjectId("617c14f8ada709c8420fb1b3"), "address" : { "building" : "", "coord" : [ -74.0163793, 40.7167671 ], "rua" : "Hudson River", "zipcode" : "10282" }, "localidade" : "Manhattan", "gastronomia" : "American", "grades" : [ { "date" : ISODate("2014-06-27T00:00:00Z"), "grade" : "C", "score" : 89 }, { "date" : ISODate("2013-06-06T00:00:00Z"), "grade" : "A", "score" : 6 }, { "date" : ISODate("2012-06-19T00:00:00Z"), "grade" : "A", "score" : 13 } ], "nome" : "West 79Th Street Boat Basin Cafe", "restaurant_id" : "40756344", "media" : 36 }{ "_id" : ObjectId("617c14f8ada709c8420fa741"), "address" : { "building" : "65", "coord" : [ -73.9782725, 40.7624022 ], "rua" : "West   54 Street", "zipcode" : "10019" }, "localidade" : "Manhattan", "gastronomia" : "American", "grades" : [ { "date" : ISODate("2014-08-22T00:00:00Z"), "grade" : "A", "score" : 11 }, { "date" : ISODate("2014-03-28T00:00:00Z"), "grade" : "C", "score" : 131 }, { "date" : ISODate("2013-09-25T00:00:00Z"), "grade" : "A", "score" : 11 }, { "date" : ISODate("2013-04-08T00:00:00Z"), "grade" : "B", "score" : 25 }, { "date" : ISODate("2012-10-15T00:00:00Z"), "grade" : "A", "score" : 11 }, { "date" : ISODate("2011-10-19T00:00:00Z"), "grade" : "A", "score" : 13 } ], "nome" : "Murals On 54/Randolphs'S", "restaurant_id" : "40372466", "media" : 33.666666666666664 }
 
 // 23. Apresente o número de gastronomias diferentes na rua "Fifth Avenue"
+db.restaurants.aggregate([{$match : {"address.rua" : "Fifth Avenue"}}, {$group : {_id : "$address.rua", gastronomias : {$addToSet : "$gastronomia" }}}])
 db.restaurants.aggregate([{$match : {"address.rua": "Flatbush Avenue"}},{$group :{_id : "$gastronomia"}} , {$count : "Total"} ])
 //9
 
@@ -127,3 +128,25 @@ db.restaurants.aggregate([{$group : {_id:"$address.zipcode",total:{$sum:1}}}, {$
 db.restaurants.aggregate([{$group : {_id:"$localidade",total:{$sum:1}}}, {$sort:{total:-1}},{$limit:1}])
 //{ "_id" : "Manhattan", "total" : 1883 }
 
+
+
+ Lista de restaurantes não avaliados deste 2014-09-01 (todos os grades são anteriores a esta data)
+ db.restaurants.aggregate([{$match :{ "grades.date": {$not:  { $gte: ISODate("2014-09-01T00:00:00Z")}}}}])
+
+
+ #27 Média das pontuações dos restaurantes em cada localidade (com base na última avaliação dada)
+ db.restaurants.aggregate([{$sort: {"grades.date" : 1}},{$group : {_id :"$localidade" , last :{$avg : {$last : "$grades.score"}}}}])
+
+ #28 Número de grades dado por grade por localidade, ignorando classificações não atribuídas ("Not Yet Graded") (Ou seja, para
+  cada localidade dar o número de A, B, C, .. atribuídos), ordenado pelo nome da localidade
+
+
+#29 Número de grades dado por grade por restaurante
+, ignorando classificações não atribuídas ("Not Yet Graded"), ordenado pelo nome do restaurante
+
+db.restaurants.aggregate([{$unwind :"$grades"},{$match : {"grades.grade" : {$ne : "Not Yet Graded"}}}, {$group : {_id :{restautante:"$nome", "grade":"$grades.grade" } , total : {$sum :1 }}}, {$sort :{"_id.restautante":1}}])
+
+ Número de restaurantes no mesmo código postal,
+  por ordem decrescente do número de restaurantes, com recurso ao comando aggregate.
+
+  

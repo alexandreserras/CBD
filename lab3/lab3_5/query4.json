@@ -1,0 +1,6 @@
+select json count(*) as total  from restaurant where localidade='Bronx';
+
+ [json]
+--------------
+ {"total": 1}
+

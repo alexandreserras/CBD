@@ -218,13 +218,15 @@ public class App
                     
                 }
                 // ALINEA D )
+                /*Aggregates.match(Filters.eq("address.rua", "Fifth Avenue")),
+                Aggregates.group("$st",),
+                Aggregates.sort(Sorts.descending("total")),
+                Aggregates.limit(1)*/
                 System.out.println();
                 System.out.println();
                 System.out.println("1-> Para cada st, indicar quais os seus dados sobre ventos ");
                 cursor=collection.aggregate(Arrays.asList(
-                    Aggregates.group("$localidade", Accumulators.sum("total", 1)),
-                    Aggregates.sort(Sorts.descending("total")),
-                    Aggregates.limit(1)
+                    Aggregates.group("$st", Accumulators.addToSet("winds", "$wind") )
                 )).iterator();
                 while(cursor.hasNext()){
                     Document c= cursor.next();
@@ -232,24 +234,67 @@ public class App
                 }
                 System.out.println();
                 System.out.println();
-                System.out.println("2-> Para as mesmas coordinates , indicar qual foi a temperatura do ar mais elevada e ordenar por ordem decrescente                ");
+                System.out.println("2-> Para as mesmas coordinates,, onde a longitude for maior que 51  , indicar qual foi o somatorio das temperaturas do ar e ordenar por ordem decrescente");
+                cursor=collection.aggregate(Arrays.asList(
+                    Aggregates.match(Filters.gte("position.coordinates.1", 51)),
+                    Aggregates.group("$position.coordinates", Accumulators.sum("temps", "$airTemperature.value") ),
+                    Aggregates.sort(Sorts.descending("temps"))
 
+                )).iterator();
+                while(cursor.hasNext()){
+                    Document c= cursor.next();
+                    System.out.println(c);
+                }
                 System.out.println();
                 System.out.println();
-                System.out.println("3-> Para o mesmo st, a soma da altura das  ondas esta entre 15 e 30 e a soma da velocidade dos ventos 3");              
-               
+                System.out.println("3-> Para o mesmo st, a soma da altura das  ondas esta entre 15 e 30 e a soma da velocidade dos ventos 10");              
+                cursor=collection.aggregate(Arrays.asList(
+                    
+                    Aggregates.group("$st", Accumulators.sum("wind_speed", "$wind.speed.rate"),Accumulators.sum("waves_altura", "$waveMeasurement.waves.height") ),
+                    Aggregates.match(Filters.and(Filters.gte("wind_speed", 10), Filters.gt("waves_altura",15), Filters.lt("waves_altura",30)))
+                )).iterator();
+                while(cursor.hasNext()){
+                    Document c= cursor.next();
+                    System.out.println(c);
+                }
                 System.out.println();
                 System.out.println();
                 System.out.println("4->Qual o st com mais ocorrencias ");
+                cursor=collection.aggregate(Arrays.asList(
+                    
+                    Aggregates.group("$st", Accumulators.sum("total", 1) ),
+                    Aggregates.sort(Sorts.descending("total")),
+                 Aggregates.limit(1)
+
+                )).iterator();
+                while(cursor.hasNext()){
+                    Document c= cursor.next();
+                    System.out.println(c);
+                }
                
                 System.out.println();
                 System.out.println();
                 System.out.println("5->Quando o array das sections for igual indicar os diversos st  ");
 
+                cursor=collection.aggregate(Arrays.asList(
+                    
+                    Aggregates.group("$sections",  Accumulators.addToSet("st's", "$st"))
+                )).iterator();
+                while(cursor.hasNext()){
+                    Document c= cursor.next();
+                    System.out.println(c);
+                }
                 System.out.println();
                 System.out.println();
                 System.out.println("6->Para cada valor atmosphericCondition  quantas coordinates existem ");
-
+                cursor=collection.aggregate(Arrays.asList(
+                    
+                    Aggregates.group("$pastWeatherObservationManual.atmosphericCondition.value",  Accumulators.addToSet("cords's", "$position.coordinates"))
+                )).iterator();
+                while(cursor.hasNext()){
+                    Document c= cursor.next();
+                    System.out.println(c);
+                }
                 mongoClient.close();
             } catch (MongoServerException me) {
                 System.err.println("An error occurred while attempting to run a command: " + me);

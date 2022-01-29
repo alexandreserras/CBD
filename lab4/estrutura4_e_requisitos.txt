@@ -1,0 +1,21 @@
+
+Jogador -> Nome,draftYear
+
+Equipa -> Nome
+
+Conferencia-> Nome
+
+Prémios -> Nome
+
+Relações:
+	jogador -  [: Jogou] -> Equipa
+	jogador - [: universidade] ->Equipa
+	Equipa -  [: pertence] -> Conferencia
+	Jogador - [: recebe {Data, posição, peso, altura,idade,seasons in league,shortcut, season}
+  ] -> Premios
+	
+
+
+Como vou fazer o trabalho em python, é necessário fazer pip3 install neo4j, caso não o tenha instalado.
+
+https://towardsdatascience.com/neo4j-cypher-python-7a919a372be7 -> link por onde me guiei

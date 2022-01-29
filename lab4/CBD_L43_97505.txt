@@ -1,0 +1,61 @@
+//97505
+#a
+Entidades :
+    Utilizador -> username, nome
+    Projeto-> nome
+    Org-> nome
+
+Relacoes:
+    Utilizador - [:Participa  {numero:num,role:role_on_project}] -> Projeto
+    Utilizador - [:Trabalha  ] -> Org
+#b)
+load csv with headers 
+from 'file:///git_selection.csv' as linha
+merge (utilizador: Utilizador{username:linha.svn_id, nome:linha.real_name})
+merge (projeto: Projeto{nome:linha.project_name})
+merge (org : Org{nome:linha.organization})
+merge (utilizador) -[:Participa{numero:linha.num, role:linha.role_on_project}]-> (projeto)
+merge (utilizador) -[:Trabalha]-> (org)
+
+
+#c
+#1
+match (user:Utilizador) return user
+//Não estou a conseguir tirar respostas
+#2
+match (user:Utilizador) return user.nome
+
+//Não estou a conseguir tirar respostas
+
+#3
+match (utilizador:Utilizador)- [:Participa] -> (proj:Projeto) 
+return proj.nome, collect(utilizador.nome)
+
+#4
+match (utilizador:Utilizador)- [:Participa] -> (proj:Projeto)
+ return utilizador.nome , count(proj) as numero_projetos
+
+#5
+match (utilizador:Utilizador)- [:Participa] -> (proj:Projeto)
+ return utilizador.nome , count(proj) as numero_projetos
+ order by numero_projetos desc 
+
+ #6
+ match (utilizador:Utilizador)- [:Participa] -> (proj:Projeto)
+ return proj.nome , count(utilizador) as numero_participantes
+
+#7
+match (utilizador:Utilizador)- [r:Participa {role:"Committer"}] -> (proj:Projeto)
+ return proj.nome , count(utilizador) as numero_participantes
+
+#8
+
+match (utilizador:Utilizador {username:"atm"})- [:Participa ] -> (proj:Projeto) <- [:Participa]-(user2:Utilizador)
+where utilizador<>user2
+ return collect(proj.nome ), utilizador.nome, user2.nome
+
+
+#9
+match (utilizador:Utilizador  {username:"atm"})- [:Participa {role:"PMC"} ] -> (proj:Projeto) <- [:Participa {role: "Committer"}]-(user2:Utilizador)
+where utilizador<>user2
+return user2

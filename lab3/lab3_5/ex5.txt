@@ -1,0 +1,95 @@
+create KEYSPACE 'restaurants' 
+ WITH replication = {'class': 'SimpleStrategy','replication_factor' : 1};
+
+use restaurants;
+
+
+Create Table restaurant(
+    id text,
+    localidade text,
+    gastronomia set<text>,
+    nome text,
+    building text,
+    coord list<float>,
+    rua text,
+    zipcode text,
+    PRIMARY KEY(id,nome,localidade)
+)with Clustering ORDER BY (nome ASC);
+
+Create Table grades(
+    nome text,
+    date timestamp,
+    grade text,
+    score int,
+    PRIMARY KEY(nome,date,grade,score)
+);
+
+
+insert into restaurant(id,localidade,gastronomia,nome,building,coord,rua,zipcode) values
+    ('30075445',  'Bronx' ,{'Bakery'},  'Morris Park Bake Shop', '1007', [-73.856077 , 40.848447],
+    'Morris Park Ave', '10462');
+
+insert into grades(nome,date,grade,score) values('Morris Park Bake Shop',1393804800000,'A',2);
+insert into grades(nome,date,grade,score) values('Morris Park Bake Shop',1358985600000,'A',10);
+insert into grades(nome,date,grade,score) values('Morris Park Bake Shop',1322006400000,'A',9);
+insert into grades(nome,date,grade,score) values('Morris Park Bake Shop',1299715200000,'B',14);
+
+
+insert into restaurant(id,localidade,gastronomia,nome,building,coord,rua,zipcode) values
+    ('30112340',  'Brooklyn' ,{'Hamburgers'},  'Wendy S', '469', [-73.961704 , 40.662942],
+    'Flatbush Avenue', '11225');
+insert into grades(nome,date,grade,score) values('Wendy S',1419897600000,'A',8);
+insert into grades(nome,date,grade,score) values('Wendy S',1404172800000,'B',23);
+insert into grades(nome,date,grade,score) values('Wendy S',1336435200000,'A',12);
+insert into grades(nome,date,grade,score) values('Wendy S',1367280000000,'A',12);
+
+insert into restaurant(id,localidade,gastronomia,nome,building,coord,rua,zipcode) values
+    ('30191841',  'Manhattan' ,{'Irish'},  'Dj Reynolds Pub And Restaurant', '351', [-73.98513559999999, 40.7676919],
+    'West   57 Street', '10019');
+insert into grades(nome,date,grade,score) values('Wendy S',1409961600000,'A',2);
+insert into grades(nome,date,grade,score) values('Wendy S',1374451200000,'A',11);
+insert into grades(nome,date,grade,score) values('Wendy S',1343692800000,'A',12);
+insert into grades(nome,date,grade,score) values('Wendy S',1325116800000,'A',12);
+
+
+
+insert into restaurant(id,localidade,gastronomia,nome,building,coord,rua,zipcode) values
+    ('40356018',  'Brooklyn' ,{'American'},  'Riviera Caterer', '2780', [-73.98241999999999, 40.579505],
+    'Stillwell Avenue', '11224');
+insert into grades(nome,date,grade,score) values('Riviera Caterer',1402358400000,'A',5);
+insert into grades(nome,date,grade,score) values('Riviera Caterer',1370390400000,'A',7);
+insert into grades(nome,date,grade,score) values('Riviera Caterer',1334275200000,'A',12);
+insert into grades(nome,date,grade,score) values('Riviera Caterer',1318377600000,'A',12);
+
+
+
+Se tivesse todos os dados do ficheiro , ia acontecer ter imensos restuarantes na mesma localidade 
+por isso acho que era vantajoso ter um index para localidade
+
+create index localidade on restaurant(localidade);
+
+
+
+5-> Como a primary key é id, a ordenação por nomes apenas ia funcionar quando os ids fossem iguais,algo
+que acaba por não ocorrer, logo não se consegue realizar a query, seria algo Como
+select json * from restuarant where localidade='Bronx' limit 15;
+
+7-> Tenho que lhe indicar o nome do restaurante por exemplo para saber o total , mas depois para ver se estava
+no intervalo já não ia ser capaz de ver, precisava de comparar do lado do cliente
+
+8-> Operações sobre listas não são possiveis, não posso fazer coord[0], se fosse um set /map era possivel
+logo tenho que fazer um select json nome, coord from restaurant; e do lado do cliente é que ia ver, e assim deixava
+esta operação que pode pesar para o lado do cliente
+
+12-> Não posso fazer o in visto que não lhe estou a dar o nome, logo tenho que fazer 3 querys e juntar no lado
+do cliente os resultados
+
+select json * from restaurant where localidade='Bronx';
+select json * from restaurant where localidade='Queens';
+select json * from restaurant where localidade='Staten Island';
+
+14 e 15-> Visto que nome é a particion key fica um bocadinho mais complexo fazer isto porque iria ter que fazer restaurante a restuarante indicando o nome
+
+17-> Para fazer isto preciso de alterar a Clustering key do restaurant, pensei que não era suposto alterar mais as tabelas, mas voltava A
+ter o problema que não estou a indicar o id , logo não ia dar
+

@@ -145,13 +145,136 @@ Querys dos find :(6 querys)
 
 Querys do agreggate: (6 querys)
 		1-> Para cada st, indicar quais os seus dados sobre ventos 
-
-		2-> Para as mesmas coordinates , indicar qual foi a temperatura do ar mais elevada e ordenar por ordem decrescente
-
-		3-> Para o mesmo st, a soma da altura das  ondas esta entre 15 e 30 e a soma da velocidade dos ventos 30
+		Document{{_id=x+16700-017500, winds=[Document{{direction=Document{{angle=20, quality=1}}, type=N, speed=Document{{rate=10.3, quality=1}}}}]}}
+		Document{{_id=x+54700+007100, winds=[Document{{direction=Document{{angle=330, quality=1}}, type=N, speed=Document{{rate=7.7, quality=1}}}}, Document{{direction=Document{{angle=320, quality=1}}, type=N, speed=Document{{rate=7.7, quality=1}}}}]}}
+		Document{{_id=x+66000-020600, winds=[Document{{direction=Document{{angle=50, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}]}}
+		Document{{_id=x+29500-057200, winds=[Document{{direction=Document{{angle=40, quality=1}}, type=N, speed=Document{{rate=7, quality=1}}}}]}}
+		Document{{_id=x+25400-052100, winds=[Document{{direction=Document{{angle=220, quality=1}}, type=N, speed=Document{{rate=2.6, quality=1}}}}]}}
+		Document{{_id=x+47600-000700, winds=[Document{{direction=Document{{angle=60, quality=1}}, type=N, speed=Document{{rate=7.2, quality=1}}}}]}}
+		Document{{_id=x+33500+122500, winds=[Document{{direction=Document{{angle=20, quality=1}}, type=N, speed=Document{{rate=8, quality=1}}}}]}}
+		Document{{_id=x+28800-060800, winds=[Document{{direction=Document{{angle=360, quality=1}}, type=N, speed=Document{{rate=8, quality=1}}}}]}}
+		Document{{_id=x+54700+004500, winds=[Document{{direction=Document{{angle=270, quality=1}}, type=N, speed=Document{{rate=1, quality=1}}}}]}}
+		Document{{_id=x+12200-094300, winds=[Document{{direction=Document{{angle=350, quality=1}}, type=N, speed=Document{{rate=2.6, quality=1}}}}]}}
+		Document{{_id=x+07300+075600, winds=[Document{{direction=Document{{angle=210, quality=1}}, type=N, speed=Document{{rate=4, quality=1}}}}]}}
+		Document{{_id=x+61600+001300, winds=[Document{{direction=Document{{angle=300, quality=1}}, type=N, speed=Document{{rate=20.6, quality=1}}}}, Document{{direction=Document{{angle=270, quality=1}}, type=N, speed=Document{{rate=10.8, quality=1}}}}, Document{{direction=Document{{angle=220, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}, Document{{direction=Document{{angle=240, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}]}}
+		Document{{_id=x+19900-122000, winds=[Document{{direction=Document{{angle=350, quality=1}}, type=N, speed=Document{{rate=5.7, quality=1}}}}]}}
+		Document{{_id=x+58300-031700, winds=[Document{{direction=Document{{angle=250, quality=1}}, type=N, speed=Document{{rate=4.6, quality=1}}}}]}}
+		Document{{_id=x-37300-079000, winds=[Document{{direction=Document{{angle=50, quality=1}}, type=N, speed=Document{{rate=2, quality=1}}}}]}}
+		Document{{_id=x+41300+162300, winds=[Document{{direction=Document{{angle=300, quality=1}}, type=N, speed=Document{{rate=6.7, quality=1}}}}]}}
+		Document{{_id=x+27100-122900, winds=[Document{{direction=Document{{angle=20, quality=1}}, type=N, speed=Document{{rate=4.6, quality=1}}}}]}}
+		Document{{_id=x+31400-117200, winds=[Document{{direction=Document{{angle=20, quality=1}}, type=N, speed=Document{{rate=5.1, quality=1}}}}]}}
+		Document{{_id=x+54300+003700, winds=[Document{{direction=Document{{angle=270, quality=1}}, type=N, speed=Document{{rate=13, quality=1}}}}, Document{{direction=Document{{angle=999, quality=1}}, type=V, speed=Document{{rate=1, quality=1}}}}]}}
+		Document{{_id=x+31200-131900, winds=[Document{{direction=Document{{angle=180, quality=1}}, type=N, speed=Document{{rate=3.1, quality=1}}}}]}}
+		Document{{_id=x+66300-025300, winds=[Document{{direction=Document{{angle=40, quality=1}}, type=N, speed=Document{{rate=9.3, quality=1}}}}, Document{{direction=Document{{angle=999, quality=1}}, type=V, speed=Document{{rate=4.6, quality=1}}}}]}}
+		Document{{_id=x+43200-062900, winds=[Document{{direction=Document{{angle=260, quality=1}}, type=N, speed=Document{{rate=1.5, quality=1}}}}]}}
+		Document{{_id=x+54200-162900, winds=[Document{{direction=Document{{angle=180, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}]}}
+		Document{{_id=x-20600+170800, winds=[Document{{direction=Document{{angle=130, quality=1}}, type=N, speed=Document{{rate=20.6, quality=1}}}}]}}
+		Document{{_id=x+41500+143100, winds=[Document{{direction=Document{{angle=280, quality=1}}, type=N, speed=Document{{rate=10, quality=1}}}}]}}
+		Document{{_id=x+20900+038600, winds=[Document{{direction=Document{{angle=20, quality=1}}, type=N, speed=Document{{rate=7.7, quality=1}}}}]}}
+		Document{{_id=x+36200+016300, winds=[Document{{direction=Document{{angle=330, quality=1}}, type=N, speed=Document{{rate=8.7, quality=1}}}}]}}
+		Document{{_id=x-18500+011500, winds=[Document{{direction=Document{{angle=140, quality=1}}, type=N, speed=Document{{rate=4, quality=1}}}}]}}
+		Document{{_id=x+08100-013600, winds=[Document{{direction=Document{{angle=330, quality=1}}, type=N, speed=Document{{rate=2, quality=1}}}}]}}
+		Document{{_id=x+18200+136400, winds=[Document{{direction=Document{{angle=60, quality=1}}, type=N, speed=Document{{rate=9.3, quality=1}}}}]}}
+		Document{{_id=x+24900-146500, winds=[Document{{direction=Document{{angle=999, quality=9}}, type=9, speed=Document{{rate=999.9, quality=9}}}}]}}
+		Document{{_id=x+33000-020500, winds=[Document{{direction=Document{{angle=260, quality=1}}, type=N, speed=Document{{rate=12.9, quality=1}}}}]}}
+		Document{{_id=x+21800-019400, winds=[Document{{direction=Document{{angle=10, quality=1}}, type=N, speed=Document{{rate=5, quality=1}}}}]}}
+		Document{{_id=x+44500-009000, winds=[Document{{direction=Document{{angle=50, quality=1}}, type=N, speed=Document{{rate=8, quality=1}}}}]}}
+		Document{{_id=x+50700-133300, winds=[Document{{direction=Document{{angle=150, quality=1}}, type=N, speed=Document{{rate=10.3, quality=1}}}}]}}
+		Document{{_id=x+29300-063300, winds=[Document{{direction=Document{{angle=360, quality=1}}, type=N, speed=Document{{rate=6.7, quality=1}}}}]}}
+		....
+		2-> Para as mesmas coordinates,, onde a longitude for maior que 51  , indicar qual foi o somatorio das temperaturas do ar e ordenar por ordem decrescente
+		ocument{{_id=[-138.8, 69.4], temps=1999.8}}
+		Document{{_id=[2, 56.4], temps=1999.8}}
+		Document{{_id=[-133.3, 70.1], temps=999.9}}
+		Document{{_id=[10.4, 59.5], temps=999.9}}
+		Document{{_id=[21.5, 61.2], temps=999.9}}
+		Document{{_id=[-162.9, 54.2], temps=999.9}}
+		Document{{_id=[-164.8, 54.3], temps=999.9}}
+		Document{{_id=[171.4, 52.7], temps=999.9}}
+		Document{{_id=[-0.2, 58.9], temps=999.9}}
+		Document{{_id=[-166.3, 54.5], temps=999.9}}
+		Document{{_id=[12.5, 56.3], temps=999.9}}
+		Document{{_id=[7.5, 55.2], temps=999.9}}
+		Document{{_id=[12.6, 55.1], temps=999.9}}
+		Document{{_id=[4.2, 52.2], temps=32.9}}
+		Document{{_id=[1.3, 61.6], temps=29.0}}
+		Document{{_id=[3.2, 51.9], temps=28.8}}
+		Document{{_id=[3.2, 53.2], temps=27.5}}
+		Document{{_id=[2.1, 59.9], temps=27.4}}
+		Document{{_id=[3.6, 51.9], temps=24.9}}
+		Document{{_id=[1.3, 58.7], temps=22.8}}
+		Document{{_id=[2.9, 61.7], temps=22.1}}
+		Document{{_id=[2.3, 61], temps=21.6}}
+		Document{{_id=[1.1, 61.2], temps=21.5}}
+		Document{{_id=[1.4, 60.8], temps=20.4}}
+		Document{{_id=[0.3, 58.4], temps=17.8}}
+		Document{{_id=[1.3, 58.3], temps=17.7}}
+		Document{{_id=[4.8, 55.6], temps=17.1}}
+		Document{{_id=[-48.6, 59.5], temps=14.8}}
+		Document{{_id=[1.8, 61.2], temps=14.6}}
+		Document{{_id=[1.7, 61.1], temps=14.6}}
+		Document{{_id=[1.5, 59.6], temps=13.7}}
+		Document{{_id=[-15.2, 54.1], temps=13.5}}
+		Document{{_id=[-10, 54.1], temps=13}}
+		Document{{_id=[2.5, 60], temps=12.8}}
+		Document{{_id=[3.2, 56.5], temps=12.6}}
+		Document{{_id=[1.5, 59.5], temps=12.399999999999999}}
+		Document{{_id=[-17, 52.7], temps=12}}
+		Document{{_id=[-165.8, 56.3], temps=11.8}}
+		Document{{_id=[-8.8, 55.4], temps=11.5}}
+		Document{{_id=[3.7, 54.3], temps=11.5}}
+		Document{{_id=[-144.6, 51.3], temps=11.2}}
+		Document{{_id=[-16.8, 52.7], temps=11.2}}
+		Document{{_id=[-9.8, 55.4], temps=11}}
+		Document{{_id=[-10.9, 54], temps=11}}
+		Document{{_id=[-17.1, 53], temps=11}}
+		....
+		3-> Para o mesmo st, a soma da altura das  ondas esta entre 15 e 30 e a soma da velocidade dos ventos 10
+		Document{{_id=x+46400-048200, wind_speed=74.5, waves_altura=16.0}}
+		Document{{_id=x+19700+129800, wind_speed=12, waves_altura=22}}
 
 		4->Qual o st com mais ocorrencias   
+		Document{{_id=x+51900+003200, total=6}}
 
 		5->Quando o array das sections for igual indicar os diversos st 
+		Document{{_id=[AA1, AG1, AY1, GF1, MW1], st's=[x+31400-149800]}}
+		Document{{_id=[AG1, AY1, GA1, GF1, MD1, MW1, SA1, UA1, UG1, WD1], st's=[x-66700+060100]}}
+		Document{{_id=[AG1, AY1, GF1, MA1, MD1, MW1], st's=[x+85600-124000, x+79900-171800, x+79800-172000]}}
+		Document{{_id=[AG1, AY1, GF1, MW1, UA1], st's=[x+53400+005900, x+19700+129800, x+53600+004800, x+38300+074400]}}
+		Document{{_id=[AG1, AY1, GF1, MW1], st's=[x+39400-131000, x+55300+005000, x+63200-016100, x+62600-015200, x+63300-018400, x+59700-006500, x+43900-161000, x+47200-059400, x+59300-030500, x+29300-063300, x+39400-009700, x+47400-070400, x+62400-006300, x+52700+003700, x+67800+003200, x+57000+018800, x+62100-006100, x+38300-010300, x+61900-004100, x+43300-062500, x+62100-006700, x+20700+059200, x-19300+060300, x+21100+116200, x+23500-073000, x+59800-029700, x+45400-055700, x+65600+000600, x+62500-008600, x+43900-064200, x+44900-066700, x+52700+171400, x+55400+008400, x+62900-016200, x+32600+028600, x+45500+153000, x+43700-059900, x+38200+121500, x+56300+017200, x+40100-009300, x+45100-061700, x+60900-005300, x+61200+021500, x+66100-026200, x+46700-099800, x+38500-072500, x+54700+004500, x+11500+004900, x+68100+004500, x+54000-011300, x+62600-025600, x+29200-116500, x+46300-130700, x+57800-032500, x+43400-065600, x+26700+050200, x+07600-027400, x+45900-059900, x+17500+086700, x+68500+007200, x+33900+136600, x+38700-051800, x+28700+136900, x+28500-066400, x+27800-052900, x+66100+002200, x+08000+082600, x+54000-010900, x+41600-067800, x+44100+165000, x+58100-034500, x+63300-016700, x+66300-025200, x+36000-005200, x+61400-007400, x+03800-096300, x+66300-025300, x+18500-053700, x+43200-062900, x+54200-162900, x+54300+005000, x+48900-067600, x+20200+086700, x+08700-027000, x+54100-010000, x+25900+139000, x+10200-024600, x+17000+143400, x+36600-000400, x+48000-029000, x+48500-143600, x-12000+107000, x+62200-006200, x+22600-085900, x+58300-031700]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, MW1], st's=[x+44100-059600, x+17300+050700, x-18400+011700, x+45200-167500, x+24800-075300, x+49100-044400, x+49600-011400, x+21200-017300, x+03400+110700, x+37000-037000, x+41200+009400, x+34700+139900, x+49100-055300, x+41000-067600, x+19500+039300, x+50700-133300, x+16900-028600, x+33000-020500, x+29200-071600, x+38100+001800, x+49700-055900, x+45100+173500, x+16900-018200, x+58300+001300, x+31900+128700, x+39300-062200, x+49500-054400, x+22100-033700, x+48900-125400, x+37200-000900, x+44000+149000, x+22700-120900, x+12800+114300, x+16500+091300, x+56600+020700, x+39900-027900, x+17300+090700, x-27700+010000, x+48000-061800, x+24700-061200, x-36300-003600]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, MW1, UA1, UG1], st's=[x+26800-076300, x+33900+024900, x+03200+126500, x-05200+069200, x+19000+120500, x+38400-041800, x+49500-008700, x+03300-087600, x+39200-061800, x+27600-115400, x-25300-156400, x+51300-144600, x+20000+121100, x+18200+136400, x+37100-043800, x-04000+070100, x+20400-065200, x-31800+115400, x+45600-132100, x-27300+114300, x+28500-068200, x+16800+137200, x-39100+173500, x+26800-091200, x+42700-127500, x+06900+088100, x+35100+018900, x+51900-161300, x+46000-023800, x-23900-152800, x+52000-147600, x+17300+153100]}}
+		Document{{_id=[AG1, GA1, GF1, MD1], st's=[x+52000+002100]}}
+		Document{{_id=[AG1, AY1, GA1, GF1, MD1, MW1, SA1, UG1], st's=[x+04200+144700, x+52600+155200, x+27800+124300, x+53000+004200]}}
+		Document{{_id=[AG1, AY1, GA1, GA2, GA3, GF1, MD1, MW1, SA1, UA1, UG1, UG2], st's=[x+55400-010100, x+55400-009800]}}
+		Document{{_id=[AG1, GF1, MD1, SA1, UA1, UG1], st's=[x+03800+092300, x-46500-065400, x+25900-016100, x+44600+148200, x+18700+162900, x+53400+160600, x+43100-009400, x+06100+094200, x+43900-008800, x+21800-017500, x+28000-015100, x-03500+081500, x+19000+115000, x-44000-031900]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, MW1, WD1], st's=[x+47900-061800, x+49000-064400]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, SA1, UA1], st's=[x+32200+132200]}}
+		Document{{_id=[AG1, AY1, GA1, GF1, MW1, SA1, UA1], st's=[x+40400+000300, x+55100+012600, x+41900+143800]}}
+		Document{{_id=[AG1, OA1], st's=[x+58400+000300, x+56400+002000]}}
+		Document{{_id=[AG1, GF1, MW1, OA1, UA1], st's=[x+58900-000200]}}
+		Document{{_id=[AA1, AA2, AG1, GF1, MA1, MD1], st's=[x+79800-172000]}}
+		Document{{_id=[AG1, MD1, OA1, SA1, UA1], st's=[x+52200+004200, x+51900+003600, x+51900+003200]}}
+		Document{{_id=[AG1], st's=[x+46700-059900, x+06800+116200, x+45100-066300, x+45200-066400, x+45100-066500, x+48900-050500, x+46500-060100, x+48300-044400]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, MW1, SA1, UG1], st's=[x+46200-130200, x+23700-016700, x+33600-008300, x+56300-165800, x+10600-020700, x+16900-019600, x+23300-059100, x-73800-023400, x-09100+119500, x+37100+004900, x+22000-035100, x-14100+001800, x-30300-148100, x-34100+151400, x+25500-050300, x+21800-019400, x+25400-016100, x+18000-075800, x+39300-032900, x+20800+141900, x+42300-065000, x+37000-069900, x+51000+157000]}}
+		Document{{_id=[AG1, MD1, OA1, SA1], st's=[x+51900+003200, x+50600-002700, x+51900+003600]}}
+		Document{{_id=[AG1, AY1, GF1, MW1, SA1], st's=[x+58600+004600, x-34600-048700, x+55200+007500, x-29400-041300, x+56300+012500, x+36500-043400, x+66000-025500, x+65700-020400, x-13700+042100, x+63000-024400, x+62200-014500, x+66000-020600, x+66200-025400, x+66000-019900, x+48100-010300, x+45200-056700, x+45100-057500, x+07000+079500, x+63000-024300, x+37700+122600]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, MW1, SA1], st's=[x+25000+123500, x+02000+102500, x+63400+020400, x+49700-054900, x+13100+043100, x+38000-037000, x+63700-017700, x+18500+064100, x-09700+146200, x+17100-066900, x+19600+061700, x-39800+144200, x-26200+112900, x+44800+166500, x-40100+145000, x+15600-109800, x+37100+003700, x+41700+145400, x+00200+090600, x+20900+038600, x+59900+002100, x+46400-022400, x+16200-111400, x+02800-006400, x-24400+104200, x+46800-139600, x+23200-111900, x+43700-038300, x-12100+046900, x-14500+007000, x+31700-023600, x+43600-009200, x+35300-059500, x+09800+110600, x+44900+148400, x-27000+161200, x+17800-016300, x+14500+114500, x+27900-149700, x+22300-119400, x+03400+110700, x+13800+131700, x+48300-006100, x+28900-034800, x-20600-143300, x+38100-018900, x+29700+137500, x+17100-016900, x+23000+037000, x+59500-021700, x+29500-057200, x-16700+096200, x+29500+132200, x-11700+124500, x+49900-127600, x+15300+057300, x+28200+033300, x+16700+148300, x+20500+038700, x+37000-031800, x+27400-066000, x+37600-034900, x-36500+032100, x+36000-003400, x+08100+088600, x+19500+039600, x+23400+143900, x+61000+002300, x-19400+153500, x+04600-016500, x+52700-143500, x+35900-045400, x+63200+020300, x+36600-001100, x+41300+162300, x+44400+164800, x-25700+085000, x+35500+155600, x+61600+001300, x-09500-028400]}}
+		Document{{_id=[AG1, MD1, OA1, UA1], st's=[x+61100+001700, x+58700+001300, x+61200+001100, x+53200+003200]}}
+		Document{{_id=[AG1, GA1, GF1, MD1, MW1], st's=[x+69400-138800]}}
+		Document{{_id=[AG1, AY1, GA1, GA2, GF1, MD1, MW1, SA1, UA1, UG1], st's=[x+55400-008500]}}
+		Document{{_id=[AG1, AY1, GA1, GF1, MD1, MW1, SA1], st's=[x+12500+045000, x+52700-016800, x-44000+173300, x+20500+123500, x-46800+170200, x+08500+139400, x+45600-023000, x-46500+170800, x+44700+148500, x+50100-003700, x+41500+143100, x+72700+015000, x+36000-044700]}}
+		Document{{_id=[AG1, AY1, GF1, MD1, MW1, UA1, UG1, UG2], st's=[x+12600-092500, x+44500-164900]}}
+		Document{{_id=[AG1, AY1, GA1, GF1, MD1, MW1], st's=[x-52500+108300, x+45000+150000, x+50400-000900, x-39100+173500]}}
+		Document{{_id=[AG1, MD1, OA1], st's=[x+58400+000300, x+53100+002200]}}
+		Document{{_id=[AG1, OA1, SA1, UA1], st's=[x+52200+004200]}}
+		Document{{_id=[AA1, AG1, AY1, GF1, MD1, MW1, SA1, UA1, UG1], st's=[x+40000-039500]}}
+		...
 
 		6->Para cada valor atmosphericCondition  quantas coordinates existem
+		Document{{_id=[6], cords's=[[173.4, -39.6], [146.2, -9.7], [128, 12.6], [1.4, 60.8], [128.2, 8.1], [128.9, 9.9], [-19, 36.9], [1.3, 61.6], [-46, 46.2], [-73.2, 38.4], [4.3, 61.2], [-126.3, -47.5], [2.5, 60], [-43.4, 38.2], [-155.7, 6.1], [119.5, -9.1], [1.8, 61.2], [-24.4, 63], [-48.2, 35.4], [-46.2, 46.4], [144.7, 4.2], [143.4, 17], [175.3, -36.2], [7.5, -15], [2.9, 61.7], [129.8, 19.7], [-51.8, 38.7], [170.8, -20.6], [119.7, 25.1], [127.8, 15.3], [1.5, 59.5], [0.3, 58.5], [2.3, 61], [28.7, 33.1], [-79, -37.6], [128, 7.4]]}}
+		Document{{_id=[2], cords's=[[149.5, 15.9], [136.9, 28.7], [173.5, -39.1], [-21.7, 59.5], [167.9, 29.3], [-23.4, -73.8], [-156.4, -25.3], [96.2, -16.7], [18.9, 35.1], [-36.2, 46.5], [-73, 23.5], [-41.8, 38.4], [-16.5, 4.6], [-60, 39.5], [-68.9, 26.7], [170.2, 52.4], [74.4, 38.3], [88.1, 6.9], [-33.1, 45.7], [-46, -60.5], [-21.1, 51.1], [-24.6, 10.2], [70.9, -0.7], [-170.5, 29.8], [-159, 48.5], [-17.2, 11], [1, 58.9], [10.4, 66.7], [-140.7, 50.6], [-59.4, 47.2], [-21.5, 32.8], [-8.6, 62.5], [-62.6, 40.9], [33, 69.9], [-132.4, 50.7], [-10.9, 54], [5.1, 62.4], [165, 35], [-15.2, 62.6], [-13.9, 54.7], [-14.5, 62.2], [142.5, 40.1], [-102.6, 17.8], [-149.7, 27.9], [-12.7, 55.5], [-21.5, 7.9], [-79.6, 28.8], [2.1, 59.9], [-135.5, 54.3], [-142.1, 47.4], [-123.1, 23.4], [123.2, 21.4], [128.2, 22], [-162.9, 54.2], [24.9, 33.9], [118.3, 18], [170.1, -21.4], [-92.5, 12.6], [-149.8, 31.4], [-29.2, 32.2], [-130.2, 46.2], [143.5, 36.8], [-16.2, 62.9], [-173.9, 38.8], [1.8, 38.1], [-139.6, 46.8], [2.3, 56.5], [-26, 44.7], [148.2, 41.3], [-135.3, 33.2], [1.8, -14.1], [173.7, 27.3], [-146.7, 28.1], [-109.8, 15.6], [143.5, 5.3], [-164.8, 54.3], [104.2, -24.4], [14, 36.6], [-46.4, 46.5], [-47.5, 35.5], [-59.5, 35.3], [-57.5, 45.1], [-135.7, 48.4], [171.4, 52.7], [-10, 54.1], [-143.6, 48.5], [164.8, 44.4], [-79.5, 24.4], [-52.9, 23.7], [-141, -18.3], [173.4, -39.6], [147.1, 0.9], [161.6, -34.1], [-2.2, 9.5], [150.7, 16.4], [144.3, 11.6], [-133.3, 50.7], [141.8, 35.1], [132.2, 32.2], [16.1, -29.4], [151.9, -33.5], [37.1, 23.2], [4.5, 54.7], [-25.5, 43.1], [-24.8, 37.8], [-147.2, 39.3], [153.3, 14.9], [9.3, 65], [-29, 48], [170, 29.3], [-38.2, -24.4], [-17.2, 11.7], [150, -13.9], [12.5, 56.3], [7.5, 55.2], [121.4, 22.2], [145, -40.1], [137.5, 29.7], [-137.2, 54.6], [-91.2, 26.8]]}}
+		Document{{_id=[9], cords's=[[16.5, 35.8], [71.7, 30.7], [152.5, -12.6], [-87.2, 30.1], [-169.8, -13.5], [16.3, 36.2]]}}
+		Document{{_id=[8], cords's=[[-65, 42.3], [-18.4, 63.3], [-17.7, 63.7], [10.2, 66.5], [-37.9, 37], [-75.8, 18], [-46, 2.3], [137.2, 16.8], [-23.2, 37.1], [-166.4, -5.7], [12.6, 68.5], [-39.5, 40], [11.4, -34.3], [151.5, -1.1], [-61.8, 39.2], [-59.7, 43.7], [1.3, 61.6], [90.6, 0.2], [-33.5, 45.1], [-56.7, 45.2], [-14.1, 34.5], [-48.6, 59.5], [4.5, 62.5], [-6.3, 62.4], [-16.1, 63.2], [134.8, 18.5], [1.4, 60.8], [-60.8, 43.6], [-19.9, 66], [-36.8, 34.3], [-24.1, -20.3], [-74.5, 19.3], [-37, 38], [-59.5, 44], [-51.4, 45.4], [-48.6, 35.9], [-159.6, 37.2], [-42.9, 38.4], [10.7, 71.1], [-58, 44.3], [152.6, -2.6], [126.5, 3.2], [-79.7, -66.7], [-53.2, 24.5], [-23.8, 46], [10.5, 67.4], [78.3, 0], [9.5, 37.5], [141.7, 41.6], [130.1, 9.9], [150.3, 20.8], [20.7, 71.1], [105.8, 3.8], [-28.9, 37.6], [11.8, 68.4], [-152.8, -23.9], [-58.3, 44.4], [-163.5, 45.1], [175.6, -36.5], [-6.1, 62.1], [-38.9, 9.8], [110.7, 3.4], [147.3, 20.8]]}}
+		Document{{_id=[1], cords's=[[143.9, 23.4], [-157.4, 34.8], [-161.3, 45.4], [-65.2, 20.4], [-54.7, 30.7], [136.4, 18.2], [-7, 47], [-65.1, 13], [-66.9, 17.1], [165, 44.1], [95.1, -15.5], [-164.4, 35.8], [-148.5, 27], [-6.9, 49.5], [112.3, -25.6], [4.8, 55.6], [50.7, 17.3], [120.6, 26.2], [-131, 39.4], [-129, 45.8], [-109.4, 22], [-44.7, 36], [-147.6, 52], [55.5, 15.3], [-104.1, 18.3], [151.6, 45.2], [-63.5, 12.2], [-6.5, 59.7], [-16.9, 17.1], [-9.7, 49.5], [-3.5, -7.3], [90.7, 17.3], [110.7, 3.4], [-63.1, 12.2], [-48.2, 46.4], [140.8, 34.8], [-111.4, 16.2], [-43.8, 37.1], [-134.4, 49.8], [109.8, -29.5], [-38.3, 43.7], [-108.1, 21.2], [-18, 49.8], [-63.3, 29.3], [-67.6, 41], [-87.4, 25.5], [-51.6, 34.5], [-68.4, 41.7], [12.6, 55.1], [1.7, 51.1], [152.6, -23.7], [-126.4, 34], [144.2, -39.8], [1.9, 51.1], [-18, 49.9], [127, -12.4], [69.2, -5.2], [-78, 49.8]]}}
+		....

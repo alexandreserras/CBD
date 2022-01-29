@@ -1,0 +1,308 @@
+//97505
+#1
+MATCH (people:Person)-[:DIRECTED]->(movie:Movie) <- [:ACTED_IN]-(people) return people.name, movie.title
+╞════════════════╪═══════════════════╡
+│"Tom Hanks"     │"That Thing You Do"│
+├────────────────┼───────────────────┤
+│"Clint Eastwood"│"Unforgiven"       │
+├────────────────┼───────────────────┤
+│"Danny DeVito"  │"Hoffa"            │
+#2
+Match (movie:Movie)<-[:ACTED_IN]-(person:Person) where movie.released>2005 return movie, collect(person.name)
+╞══════════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════╡
+│{"tagline":"Based on the extraordinary true story of one man's fight f│["Zach Grenier","Steve Zahn","Christian Bale","Marshall Bell"]        │
+│or freedom","title":"RescueDawn","released":2006}                     │                                                                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│{"tagline":"Everything is connected","title":"Cloud Atlas","released":│["Tom Hanks","Jim Broadbent","Halle Berry","Hugo Weaving"]            │
+│2012}                                                                 │                                                                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│{"tagline":"Break The Codes","title":"The Da Vinci Code","released":20│["Tom Hanks","Ian McKellen","Audrey Tautou","Paul Bettany"]           │
+│06}                                                                   │                                                                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│{"tagline":"Freedom! Forever!","title":"V for Vendetta","released":200│["John Hurt","Stephen Rea","Natalie Portman","Hugo Weaving","Ben Miles│
+│6}                                                                    │"]                                                                    │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────
+//Apenas coloquei 4 filmes tinha mais valores 
+#3
+MATCH(n1)-[r]-(n2) with n1,n2, count(r) as total where total >1   return  n1, n2
+╞══════════════════════════════════════════════════╪══════════════════════════════════════════════════╡
+│{"born":1967,"name":"Lilly Wachowski"}            │{"tagline":"Speed has no limits","title":"Speed Ra│
+│                                                  │cer","released":2008}                             │
+├──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│{"born":1967,"name":"Lilly Wachowski"}            │{"tagline":"Freedom! Forever!","title":"V for Vend│
+│                                                  │etta","released":2006}                            │
+├──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│{"born":1965,"name":"Lana Wachowski"}             │{"tagline":"Speed has no limits","title":"Speed Ra│
+│                                                  │cer","released":2008}                             │
+├──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+│{"born":1965,"name":"Lana Wachowski"}             │{"tagline":"Freedom! Forever!","title":"V for Vend│
+│                                                  │etta","released":2006}                            │
+├──────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+//Apenas coloquei 4 resultados mais tinha mais
+#4
+MATCH (r1)-[:REVIEWED]->(movie)<-[:REVIEWED]-(r2)
+where ID(r1)>ID(r2)
+return movie.title, r1.name, r2.name
+╞═══════════════════╪══════════════════╪══════════════════╡
+│"The Replacements" │"James Thompson"  │"Jessica Thompson"│
+├───────────────────┼──────────────────┼──────────────────┤
+│"The Replacements" │"James Thompson"  │"Angela Scope"    │
+├───────────────────┼──────────────────┼──────────────────┤
+│"The Replacements" │"Jessica Thompson"│"Angela Scope"    │
+├───────────────────┼──────────────────┼──────────────────┤
+│"The Da Vinci Code"│"James Thompson"  │"Jessica Thompson"│
+└───────────────────┴──────────────────┴──────────────────┘
+// Aqui usei o id por uma questão de não haver repetições, eu poderia fazer onde o r1 <> r2, mas 
+// nesses casos ia acontecer ter │"The Replacements" │"James Thompson"  │"Jessica Thompson"│  e │"The Replacements" │"Jessica Thompson"  │"James Thompson"│
+//onde o que temos é repetir os dados 
+#5
+MATCH (actor1:Person)-[:ACTED_IN]->(movie:Movie)<-[:ACTED_IN]-(actor2:Person)
+with actor1,actor2, count(movie) as total 
+where ID(actor1)>ID(actor2) and total>1
+return  actor1.name, actor2.name
+╒════════════════════╤════════════════════╕
+│"actor1.name"       │"actor2.name"       │
+╞════════════════════╪════════════════════╡
+│"Hugo Weaving"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"J.T. Walsh"        │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Tom Cruise"        │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Meg Ryan"          │
+├────────────────────┼────────────────────┤
+│"Rosie O'Donnell"   │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Rain"              │"Ben Miles"         │
+├────────────────────┼────────────────────┤
+│"Gary Sinise"       │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Danny DeVito"      │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Bill Paxton"       │"Tom Hanks"         │
+└────────────────────┴────────────────────┘
+#6
+MATCH (actor1:Person)-[:ACTED_IN]->(movie:Movie)                            
+where movie.title ="Apollo 13"   
+return avg(movie.released-actor1.born) as media_idades
+╒══════════════╕
+│"media_idades"│
+╞══════════════╡
+│40.2          │
+└──────────────┘
+#7
+MATCH (actor1:Person)-[:ACTED_IN]->(movie:Movie)             
+return movie.title,  round(avg(movie.released-actor1.born),2) as media_idades 
+order by  media_idades Desc  limit  10
+╒════════════════════════╤══════════════╕
+│"movie.title"           │"media_idades"│
+╞════════════════════════╪══════════════╡
+│"Unforgiven"            │62.0          │
+├────────────────────────┼──────────────┤
+│"Cloud Atlas"           │54.25         │
+├────────────────────────┼──────────────┤
+│"Something's Gotta Give"│54.0          │
+├────────────────────────┼──────────────┤
+│"The Birdcage"          │50.33         │
+├────────────────────────┼──────────────┤
+│"Frost/Nixon"           │49.4          │
+├────────────────────────┼──────────────┤
+│"The Polar Express"     │48.0          │
+├────────────────────────┼──────────────┤
+│"What Dreams May Come"  │48.0          │
+├────────────────────────┼──────────────┤
+│"V for Vendetta"        │47.2          │
+├────────────────────────┼──────────────┤
+│"RescueDawn"            │46.75         │
+├────────────────────────┼──────────────┤
+│"Snow Falling on Cedars"│46.5          │
+└────────────────────────┴──────────────┘
+//Não consegui meter tudo com 2 casas decimais. Testei vários métodos mas não consegui
+#8
+MATCH (actor1:Person)-[:ACTED_IN]->(movie:Movie)             
+with movie as filme,  round(avg(movie.released-actor1.born),2) as media_idades 
+order by  media_idades asc  limit 1
+match (actor: Person)-[:ACTED_IN]->(filme)
+return collect(actor),filme
+╒══════════════════════════════════════════════════════════════════════╤══════════════════════════════════════════════════════════════════════╕
+│"collect(actor)"                                                      │"filme"                                                               │
+╞══════════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════╡
+│[{"born":1974,"name":"Jerry O'Connell"},{"born":1970,"name":"River Pho│{"tagline":"For some, it's the last real taste of innocence, and the f│
+│enix"},{"born":1942,"name":"Marshall Bell"},{"born":1972,"name":"Wil W│irst real taste of life. But for everyone, it's the time that memories│
+│heaton"},{"born":1966,"name":"Kiefer Sutherland"},{"born":1966,"name":│ are made of.","title":"Stand By Me","released":1986}                 │
+│"John Cusack"},{"born":1971,"name":"Corey Feldman"}]                  │                                                                      │
+└──────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────┘
+#9 
+// https://neo4j.com/docs/cypher-manual/current/execution-plans/shortestpath-planning/
+
+match p=shortestPath((actor1 :Person {name:"John Cusack"})-[*]-(actor2: Person {name:"Demi Moore"}))
+RETURN actor1.name, p,actor2.name
+
+
+╒═════════════╤══════════════════════════════════════════════════════════════════════╤═════════════╕
+│"actor1.name"│"p"                                                                   │"actor2.name"│
+╞═════════════╪══════════════════════════════════════════════════════════════════════╪═════════════╡
+│"John Cusack"│[{"born":1966,"name":"John Cusack"},{"roles":["Denny Lachance"]},{"tag│"Demi Moore" │
+│             │line":"For some, it's the last real taste of innocence, and the first │             │
+│             │real taste of life. But for everyone, it's the time that memories are │             │
+│             │made of.","title":"Stand By Me","released":1986},{"tagline":"For some,│             │
+│             │ it's the last real taste of innocence, and the first real taste of li│             │
+│             │fe. But for everyone, it's the time that memories are made of.","title│             │
+│             │":"Stand By Me","released":1986},{},{"born":1947,"name":"Rob Reiner"},│             │
+│             │{"born":1947,"name":"Rob Reiner"},{},{"tagline":"In the heart of the n│             │
+│             │ation's capital, in a courthouse of the U.S. government, one man will │             │
+│             │stop at nothing to keep his honor, and one will stop at nothing to fin│             │
+│             │d the truth.","title":"A Few Good Men","released":1992},{"tagline":"In│             │
+│             │ the heart of the nation's capital, in a courthouse of the U.S. govern│             │
+│             │ment, one man will stop at nothing to keep his honor, and one will sto│             │
+│             │p at nothing to find the truth.","title":"A Few Good Men","released":1│             │
+│             │992},{"roles":["Lt. Cdr. JoAnne Galloway"]},{"born":1962,"name":"Demi │             │
+│             │Moore"}]                                                              │             │
+└─────────────┴──────────────────────────────────────────────────────────────────────┴─────────────┘
+#10
+match p=shortestPath((actor1:Person {name:"Keanu Reeves"})-[*]-(actor2:Person{name:"Tom Cruise"}))
+RETURN length(p) as tamanho_minimo
+╒════════════════╕
+│"tamanho_minimo"│
+╞════════════════╡
+│4               │
+└────────────────┘
+#11
+Match (p1: Person), (p2:Person)
+where p1.name Starts with "Jim" and p2.name Starts with "Kevin"
+match p=shortestPath((p1)-[*]-(p2))
+RETURN  p1.name, p2.name, length(p) as tamanho_minimo
+╒═══════════════╤══════════════╤════════════════╕
+│"p1.name"      │"p2.name"     │"tamanho_minimo"│
+╞═══════════════╪══════════════╪════════════════╡
+│"Jim Cash"     │"Kevin Bacon" │4               │
+├───────────────┼──────────────┼────────────────┤
+│"Jim Cash"     │"Kevin Pollak"│4               │
+├───────────────┼──────────────┼────────────────┤
+│"Jim Broadbent"│"Kevin Bacon" │4               │
+├───────────────┼──────────────┼────────────────┤
+│"Jim Broadbent"│"Kevin Pollak"│6               │
+└───────────────┴──────────────┴────────────────┘
+#12
+Match (p1: Person {name:"Jim Cash"} ),  (p2:Person)
+where p1<>p2
+match p=shortestPath((p1)-[*]-(p2))
+with p1,p2,length(p) as distancia
+where distancia =2
+RETURN  p2.name
+╒═════════════════╕
+│"p2.name"        │
+╞═════════════════╡
+│"Tom Cruise"     │
+├─────────────────┤
+│"Kelly McGillis" │
+├─────────────────┤
+│"Val Kilmer"     │
+├─────────────────┤
+│"Anthony Edwards"│
+├─────────────────┤
+│"Tom Skerritt"   │
+├─────────────────┤
+│"Meg Ryan"       │
+├─────────────────┤
+│"Tony Scott"     │
+└─────────────────┘
+#13
+Match (p1: Person {name:"Kevin Bacon"} ),  (p2:Person)
+where p1<>p2
+match p=shortestPath((p1)-[*]-(p2))
+RETURN  length(p) as distancia 
+order by distancia desc limit 1
+╒═══════════╕
+│"distancia"│
+╞═══════════╡
+│6          │
+└───────────┘
+#14
+Match (p1: Person  ),  (p2:Person)
+where p1<>p2
+match p=shortestPath((p1)-[*]-(p2))
+RETURN  length(p) as distancia 
+order by distancia desc limit 1
+╒═══════════╕
+│"distancia"│
+╞═══════════╡
+│10         │
+└───────────┘
+#15
+Match (p1: Person  ),  (p2:Person)
+where (p1)<>(p2)
+match p=shortestPath((p1)-[*]-(p2))
+with  length(p) as distancia 
+return distancia, count(*)
+╒═══════════╤══════════╕
+│"distancia"│"count(*)"│
+╞═══════════╪══════════╡
+│2          │1276      │
+├───────────┼──────────┤
+│4          │6248      │
+├───────────┼──────────┤
+│6          │8026      │
+├───────────┼──────────┤
+│8          │1610      │
+├───────────┼──────────┤
+│3          │114       │
+├───────────┼──────────┤
+│5          │246       │
+├───────────┼──────────┤
+│7          │22        │
+├───────────┼──────────┤
+│10         │8         │
+├───────────┼──────────┤
+│1          │6         │
+└───────────┴──────────┘
+//Perguntar ao stor se A -> B estiver se B -> A tambem tem de estar , ou se é metade destes valores todos
+#16
+Match (p1: Person  ),  (p2:Person)
+where (p1)<>(p2)
+match p=shortestPath((p1)-[:ACTED_IN*]-(p2))
+with  length(p) as distancia , p1.name as name
+return name, round(avg( distancia),2) as media
+order by media asc limit 10
+╒══════════════════╤═══════╕
+│"name"            │"media"│
+╞══════════════════╪═══════╡
+│"Tom Hanks"       │3.78   │
+├──────────────────┼───────┤
+│"Kevin Bacon"     │4.38   │
+├──────────────────┼───────┤
+│"Cuba Gooding Jr."│4.51   │
+├──────────────────┼───────┤
+│"Jack Nicholson"  │4.55   │
+├──────────────────┼───────┤
+│"Bonnie Hunt"     │4.57   │
+├──────────────────┼───────┤
+│"Meg Ryan"        │4.59   │
+├──────────────────┼───────┤
+│"Greg Kinnear"    │4.65   │
+├──────────────────┼───────┤
+│"Tom Cruise"      │4.69   │
+├──────────────────┼───────┤
+│"Hugo Weaving"    │4.73   │
+├──────────────────┼───────┤
+│"Helen Hunt"      │4.81   │
+└──────────────────┴───────┘
+#17
+
+#18
+
+#19
+
+#20

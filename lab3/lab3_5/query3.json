@@ -1,0 +1,9 @@
+select json id,nome,localidade,zipcode from restaurant;
+
+[json]
+-------------------------------------------------------------------------------------------------------------
+{"id": "30112340", "nome": "Wendy S", "localidade": "Brooklyn", "zipcode": "11225"}
+{"id": "30075445", "nome": "Morris Park Bake Shop", "localidade": "Bronx", "zipcode": "10462"}
+{"id": "40356018", "nome": "Riviera Caterer", "localidade": "Brooklyn", "zipcode": "11224"}
+{"id": "30191841", "nome": "Dj Reynolds Pub And Restaurant", "localidade": "Manhattan", "zipcode": "10019"}
+
