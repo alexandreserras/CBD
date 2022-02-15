@@ -1,6 +1,6 @@
 # CBD
 
-Grades: 
+Grades: <br>
         Lab1:19 <br>
         Lab2:20 <br>
         Lab3:18.4 <br>
